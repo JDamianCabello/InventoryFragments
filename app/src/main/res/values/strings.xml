@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="splashLogoText">Logo de inicio</string>
+    <string name="btSignIn">Sign in</string>
+    <string name="btSignUp">Sign up</string>
+    <string name="tvUser">User name or e-mail address</string>
+    <string name="tvPassword">Password</string>
+    <string name="btGoogle">Google</string>
+    <string name="btFacebook">Login with facebook</string>
+    <string name="cbRemember">Remember me</string>
+</resources>
