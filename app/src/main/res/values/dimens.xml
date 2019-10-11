@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="linearLayoutLogin_globalPadding">40sp</dimen>
+    <dimen name="tvLogin_marginTop">24dp</dimen>
+    <dimen name="tvLogin_marginBotton">60sp</dimen>
+    <dimen name="imgbuttonLogin_Width">40dp</dimen>
+    <dimen name="imgbuttonLogin_Height">40dp</dimen>
+    <dimen name="signInLogin_WidthButton">200dp</dimen>
+    <dimen name="btLoginWithLogin_GlobalMargin">10sp</dimen>
+</resources>

@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20sp"
+    android:padding="@dimen/linearLayoutLogin_globalPadding"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/tvUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
+        android:layout_marginTop="@dimen/tvLogin_marginTop"
         android:text="@string/tvUser" />
 
     <EditText
         android:id="@+id/edUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60sp"
+        android:layout_marginBottom="@dimen/tvLogin_marginBotton"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -27,8 +27,8 @@
         android:id="@+id/tvPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:text="@string/tvPassword" />
+        android:layout_marginTop="@dimen/tvLogin_marginTop"
+        android:text="@string/tvPassword" />
 
     <EditText
         android:id="@+id/edPassword"
@@ -47,33 +47,84 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/CheckBoxLogin"
             android:text="@string/cbRemember" />
 
+<!--
+Este boton tiene un estilo pero se podria haber hecho con lo siguiente tambien:
+
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"
+            android:gravity="end|center_vertical"
+-->
         <Button
             android:id="@+id/btSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/Widget.Button.Transparent"
             android:text="@string/btSignUp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btSignIn"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/signInLogin_WidthButton"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100sp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_corner"
+        android:textColor="@android:color/white"
+        android:textAllCaps="false"
         android:text="@string/btSignIn" />
 
-    <Button
-        android:id="@+id/btGoogle"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btGoogle" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/btFacebook"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btFacebook" />
+        android:layout_gravity="center_horizontal"
+        android:text="@string/otherSignIn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/btGoogle"
+            android:layout_width="@dimen/imgbuttonLogin_Width"
+            android:layout_height="@dimen/imgbuttonLogin_Height"
+            android:layout_margin="@dimen/btLoginWithLogin_GlobalMargin"
+            android:background="@drawable/ic_google"
+            android:text="@string/btGoogle" />
+
+        <ImageButton
+            android:id="@+id/btFacebook"
+            android:layout_width="@dimen/imgbuttonLogin_Width"
+            android:layout_height="@dimen/imgbuttonLogin_Height"
+            android:layout_margin="@dimen/btLoginWithLogin_GlobalMargin"
+            android:background="@drawable/ic_facebook"
+            android:text="@string/btFacebook" />
+
+        <ImageButton
+            android:id="@+id/btTwitter"
+            android:layout_width="@dimen/imgbuttonLogin_Width"
+            android:layout_height="@dimen/imgbuttonLogin_Height"
+            android:layout_margin="@dimen/btLoginWithLogin_GlobalMargin"
+            android:background="@drawable/ic_twitter"
+            android:text="@string/btTwitter" />
+
+        <ImageButton
+            android:id="@+id/btGithub"
+            android:layout_width="@dimen/imgbuttonLogin_Width"
+            android:layout_height="@dimen/imgbuttonLogin_Height"
+            android:layout_margin="@dimen/btLoginWithLogin_GlobalMargin"
+            android:background="@drawable/ic_github"
+            android:text="@string/btGithub" />
+
+    </LinearLayout>
 
 </LinearLayout>
