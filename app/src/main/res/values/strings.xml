@@ -11,4 +11,5 @@
     <string name="btTwitter">Login with Twitter</string>
     <string name="otherSignIn">Or sign in with:</string>
     <string name="btGithub">Github</string>
+    <string name="activityLoginName">Register</string>
 </resources>

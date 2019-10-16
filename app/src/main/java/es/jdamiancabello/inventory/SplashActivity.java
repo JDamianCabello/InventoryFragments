@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,19 +22,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Handler handler = new Handler();
         //Esto es lo que viene a ser un hilo, fuera de la interfaz gráfica
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(WAIT_TIME);
                     InitialLogin();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         };
-        new Thread(runnable).start();
+        handler.postDelayed(runnable,WAIT_TIME);
     }
 
 

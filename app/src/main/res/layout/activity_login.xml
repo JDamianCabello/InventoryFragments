@@ -71,7 +71,7 @@ Este boton tiene un estilo pero se podria haber hecho con lo siguiente tambien:
         android:layout_width="@dimen/signInLogin_WidthButton"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_corner"
+        android:background="@drawable/selector_round_corner"
         android:textColor="@android:color/white"
         android:textAllCaps="false"
         android:text="@string/btSignIn" />
