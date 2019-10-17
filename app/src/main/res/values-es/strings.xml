@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="activityDashboardLabel">Menú principal</string>
+    <string name="btFacebook">Entrar con Facebook</string>
+    <string name="btGithub">Entrar con Github</string>
+    <string name="btGoogle">Entrar con Google</string>
+    <string name="btSignIn">Iniciar sesión</string>
+    <string name="btSignUp"><u>Registrarse</u></string>
+    <string name="activitySignUp">Crear cuenta</string>
+    <string name="signupActivity_textInputUserName">Nombre de usuario</string>
+    <string name="splashLogoText">Logo de inicio</string>
+    <string name="tvPassword">Contraseña</string>
+    <string name="tvUser">Nombre de usuario o correo</string>
+    <string name="signupActivity_textInputPasswordConfirm">Repetir contraseña</string>
+    <string name="signupActivity_textInputPassword">Contraseña</string>
+    <string name="signupActivity_textInputEmail">Correo</string>
+    <string name="signupActivity_signUpButton">Registrarse</string>
+    <string name="otherSignIn">O inicia sesión con:</string>
+    <string name="cbRemember">Recuerdame</string>
+    <string name="btTwitter">Entrar con Twitter</string>
+    <string name="activityLoginName">Iniciar sesión</string>
+</resources>

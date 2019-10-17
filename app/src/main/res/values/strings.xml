@@ -1,15 +1,31 @@
 <resources>
     <string name="app_name">Inventory</string>
-    <string name="splashLogoText">Logo de inicio</string>
+
+    <!--    Splash Activity strings -->
+    <string name="splashLogoText">App logo</string>
+
+    <!--    Login Activity strings  -->
     <string name="btSignIn">Sign in</string>
     <string name="btSignUp"><u>Sign up</u></string>
     <string name="tvUser">User name or e-mail address</string>
     <string name="tvPassword">Password</string>
-    <string name="btGoogle">Google</string>
+    <string name="btGoogle">Login with Google</string>
     <string name="btFacebook">Login with facebook</string>
     <string name="cbRemember">Remember me</string>
     <string name="btTwitter">Login with Twitter</string>
     <string name="otherSignIn">Or sign in with:</string>
-    <string name="btGithub">Github</string>
-    <string name="activityLoginName">Register</string>
+    <string name="btGithub">Login with Github</string>
+    <string name="activityLoginName">Login</string>
+
+    <!--    DashBoard Activity strings  -->
+    <string name="activityDashboardLabel">Main menu</string>
+
+
+    <!--    Sign up Activity strings    -->
+    <string name="activitySignUp">Sign up</string>
+    <string name="signupActivity_textInputUserName">User name</string>
+    <string name="signupActivity_textInputPassword">Password</string>
+    <string name="signupActivity_textInputPasswordConfirm">Repeat password</string>
+    <string name="signupActivity_textInputEmail">E-mail</string>
+    <string name="signupActivity_signUpButton">Sign Up</string>
 </resources>

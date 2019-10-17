@@ -10,6 +10,7 @@ import android.widget.Button;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btLogin;
+    private Button btSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, DashBoardActivity.class));
                 finish(); //Llama a su método OnDestroy() no se podrá volver atras.
+            }
+        });
+
+
+        btSignUp = findViewById(R.id.btSignUp);
+
+        btSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             }
         });
     }
