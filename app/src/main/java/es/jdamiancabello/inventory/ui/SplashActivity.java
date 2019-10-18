@@ -1,10 +1,12 @@
-package es.jdamiancabello.inventory;
+package es.jdamiancabello.inventory.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import es.jdamiancabello.inventory.R;
 
 public class SplashActivity extends AppCompatActivity {
 

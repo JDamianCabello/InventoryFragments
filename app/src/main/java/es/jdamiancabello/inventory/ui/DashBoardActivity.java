@@ -1,8 +1,10 @@
-package es.jdamiancabello.inventory;
+package es.jdamiancabello.inventory.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import es.jdamiancabello.inventory.R;
 
 public class DashBoardActivity extends AppCompatActivity {
 

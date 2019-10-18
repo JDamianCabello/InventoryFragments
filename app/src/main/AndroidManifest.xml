@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignUpActivity" android:label="@string/activitySignUp"></activity>
+        <activity android:name=".ui.SignUpActivity" android:label="@string/activitySignUp"></activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DashBoardActivity"
+            android:name=".ui.DashBoardActivity"
             android:label="@string/activityDashboardLabel" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:label="@string/activityLoginName"
             android:theme="@style/AppTheme"></activity>
     </application>

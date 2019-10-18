@@ -1,4 +1,4 @@
-package es.jdamiancabello.inventory;
+package es.jdamiancabello.inventory.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import es.jdamiancabello.inventory.R;
 
 public class LoginActivity extends AppCompatActivity {
 
