@@ -2,12 +2,17 @@ package es.jdamiancabello.inventory.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +34,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     private TextInputLayout tilUser;
     private TextInputLayout tilPassword;
-    private TextInputLayout tilConfirmPassword;
     private TextInputLayout tilEmail;
 
     @Override
@@ -40,18 +44,15 @@ public class SignUpActivity extends AppCompatActivity {
         btSignUp = findViewById(R.id.btnSignUp);
         tiedUser = findViewById(R.id.tieUserName);
         tiedPassword = findViewById(R.id.tiePassword);
-        tiedRepeatPassword = findViewById(R.id.tieConfirmPassword);
         tiedEmail = findViewById(R.id.tieEmail);
 
 
         tilUser = findViewById(R.id.tilUserName);
         tilPassword = findViewById(R.id.tilPassword);
-        tilConfirmPassword = findViewById(R.id.tilConfirmPassword);
         tilEmail = findViewById(R.id.tilEmail);
 
         tiedUser.addTextChangedListener(new SignUpWatcher(tiedUser));
         tiedPassword.addTextChangedListener(new SignUpWatcher(tiedPassword));
-        tiedRepeatPassword.addTextChangedListener(new SignUpWatcher(tiedRepeatPassword));
         tiedEmail.addTextChangedListener(new SignUpWatcher(tiedEmail));
 
         //Creamos un objeto de la clase SignUpWatcher
@@ -68,13 +69,12 @@ public class SignUpActivity extends AppCompatActivity {
     Método que comprueba la valided de todos los campos de TextImputLayout
      */
     private void validate() {
-        if(validateUser(tiedUser.getText().toString()) && validatePassword(tiedPassword.getText().toString(),tiedRepeatPassword.getText().toString()) && validateEmail(tiedEmail.getText().toString())){
+        if (validateUser(tiedUser.getText().toString()) & validatePassword(tiedPassword.getText().toString()) & validateEmail(tiedEmail.getText().toString())) {
             //1.-Se guarda el usuario en la base de datos
 
             //2.-Envio correo de confirmación al usuario
 
             //3.-Se pasa a LoginActivity
-            startActivity(new Intent(SignUpActivity.this,LoginActivity.class));//.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP));
             finish();
         }
     }
@@ -82,13 +82,30 @@ public class SignUpActivity extends AppCompatActivity {
 
     /**
      * Valida un usuario
-     * @return
+     *
      * @param user
+     * @return
      */
     private boolean validateUser(String user) {
-        if(TextUtils.isEmpty(user))
-            tiedUser.setError(getString(R.string.errUserEmpty));
-        requestFocus(tilUser);
+        if (CommonUtils.patterUser(user)) {
+            tilUser.setError(null);
+            return true;
+        }
+        else {
+            tilUser.setError(getString(R.string.errUserEmpty));
+            displaySoftKeyboard(tiedUser);
+            return false;
+        }
+    }
+
+    /**
+     * Este método abre el teclado en caso de que una vista (TextInputEditText) tenga el foco
+     */
+    private void displaySoftKeyboard(View view){
+        if(view.requestFocus()){
+            //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(view,0);
+        }
     }
 
     private void requestFocus(TextInputLayout textInputLayout) {
@@ -103,11 +120,19 @@ public class SignUpActivity extends AppCompatActivity {
      *      -no puede ser nulo (arreglado don el primer control)
      * @return
      * @param psw la contraseña a validar
-     * @param confirmPsw la contraseña para comprobar que coinciden
      */
-    private boolean validatePassword(String psw, String confirmPsw) {
+    private boolean validatePassword(String psw) {
 
-        return (!psw.equals(confirmPsw) && !CommonUtils.patterPassword(psw)) ? true : false;
+        if( !CommonUtils.patterPassword(psw)) {
+            tilPassword.setError(getString(R.string.errPassword));
+            displaySoftKeyboard(tiedPassword);
+            return false;
+        }
+        else{
+            tilPassword.setError(null);
+            return true;
+        }
+
 
     }
 
@@ -118,8 +143,15 @@ public class SignUpActivity extends AppCompatActivity {
      * @param s El string que contiene el e-mail
      */
     private boolean validateEmail(String s) {
-
-        return  CommonUtils.patternEmail(s);
+        if( CommonUtils.patternEmail(s)) {
+            tilEmail.setError(null);
+            return true;
+        }
+        else{
+            tilEmail.setError(getString(R.string.errEmail));
+            displaySoftKeyboard(tiedEmail);
+            return false;
+        }
     }
 
     class SignUpWatcher implements TextWatcher{
@@ -142,8 +174,15 @@ public class SignUpActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {
             switch (view.getId()){
-                case R.id.edUser:
-                    validateUser(((EditText)view).getText().toString());
+                case R.id.tieUserName:
+                    validateUser(((TextInputEditText)view).getText().toString());
+                    break;
+                case R.id.tiePassword:
+                    validatePassword(((TextInputEditText)view).getText().toString());
+                    break;
+                case R.id.tieEmail:
+                    validateEmail(((TextInputEditText)view).getText().toString());
+                    break;
             }
         }
     }

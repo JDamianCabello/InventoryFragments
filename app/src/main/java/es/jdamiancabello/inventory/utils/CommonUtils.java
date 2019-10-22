@@ -22,4 +22,10 @@ public final class CommonUtils {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
         return matcher.find();
     }
+
+    public static boolean patterUser(String user){
+        final String PATTERN = ".{6,20}$";
+
+        return user.matches(PATTERN);
+    }
 }
