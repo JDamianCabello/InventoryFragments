@@ -10,7 +10,7 @@ import es.jdamiancabello.inventory.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final long WAIT_TIME = 5000;
+    private static final long WAIT_TIME = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
