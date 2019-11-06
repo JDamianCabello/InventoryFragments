@@ -132,8 +132,6 @@ public class SignUpActivity extends AppCompatActivity {
             tilPassword.setError(null);
             return true;
         }
-
-
     }
 
     /**

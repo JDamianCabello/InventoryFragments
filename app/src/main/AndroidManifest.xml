@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SignUpActivity" android:label="@string/activitySignUp" android:launchMode = "singleTop"></activity>
+        <activity android:name=".ui.dependency.DependencyListActivity"></activity>
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:label="@string/activitySignUp"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -22,11 +26,11 @@
         <activity
             android:name=".ui.DashBoardActivity"
             android:label="@string/activityDashboardLabel"
-            android:launchMode = "singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/activityLoginName"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

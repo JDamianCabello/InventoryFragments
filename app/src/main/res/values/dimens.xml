@@ -10,4 +10,7 @@
     <dimen name="imgbuttonLogin_Height">40dp</dimen>
     <dimen name="signInLogin_WidthButton">200dp</dimen>
     <dimen name="btLoginWithLogin_GlobalMargin">10sp</dimen>
+
+    <!--    Dependency_item-->
+    <dimen name="letter_icon_size">30dp</dimen>
 </resources>
