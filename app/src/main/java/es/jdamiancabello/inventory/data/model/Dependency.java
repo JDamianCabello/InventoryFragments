@@ -9,6 +9,14 @@ public class Dependency {
     private String description;
     private String uriImage;
 
+    public Dependency(String name, String shortName, String description, String uriImage) {
+        this.name = name;
+        this.shortName = shortName;
+        this.description = description;
+        this.uriImage = uriImage;
+    }
+
+
     public String getName() {
         return name;
     }
