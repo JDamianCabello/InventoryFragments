@@ -29,6 +29,10 @@ public class DependencyRepository {
         }
     }
 
+    public boolean addDependency(Dependency dependency){
+        return dependencyList.add(dependency);
+    }
+
     public List<Dependency> getDependencyList(){
         return dependencyList;
     }

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,30 +16,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.adapter.DependencyAdapter;
+import es.jdamiancabello.inventory.data.model.Dependency;
 
 public class DependencyListFragment extends Fragment {
 
     private FloatingActionButton fabAdd;
-    private OnAddDependencyListener onAddDependencyListener;
-    interface OnAddDependencyListener{
-        void onAddDependency();
-    }
-
-
+    private showAddFragmentListener activityListener;
 
     private RecyclerView rvDependencies;
     private DependencyAdapter dependencyAdapter;
     public static final String TAG = "dependencyListFragment";
 
-    public static Fragment newInstance() {
-        return new DependencyListFragment();
+    public static Fragment newInstance(Bundle bundle) {
+        DependencyListFragment dependencyListFragment= new DependencyListFragment();
+        if (bundle != null){
+            dependencyListFragment.setArguments(bundle);
+        }
+        return dependencyListFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_dependency_list,container,false);
+        return inflater.inflate(R.layout.fragment_dependency_list, container, false);
     }
 
     @Override
@@ -58,14 +57,14 @@ public class DependencyListFragment extends Fragment {
         rvDependencies = view.findViewById(R.id.rvDependency);
         rvDependencies.setAdapter(dependencyAdapter);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvDependencies.setLayoutManager(linearLayoutManager);
 
         fabAdd = view.findViewById(R.id.fabAddDependency);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onAddDependencyListener.onAddDependency();
+                activityListener.showAddFragment(null);
             }
         });
     }
@@ -73,16 +72,16 @@ public class DependencyListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
-            onAddDependencyListener=(OnAddDependencyListener) context;
-        }catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + " must implements OnAddDependencyListener");
-        }
+        this.activityListener = (showAddFragmentListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        onAddDependencyListener=null;
+        this.activityListener= null;
+    }
+
+    interface showAddFragmentListener{
+        void showAddFragment(Dependency d);
     }
 }

@@ -55,6 +55,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
             tvName = itemView.findViewById(R.id.tvDependencyItemName);
             tvShortName = itemView.findViewById(R.id.tvDependencyItemShortName);
             tvDescription = itemView.findViewById(R.id.tvDependencyItemDescription);
+            //TODO AÑADIR ONCLICK EN LOS ELEMTOS
         }
     }
 }

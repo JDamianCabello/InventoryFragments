@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.adapter.DependencyAdapter;
+import es.jdamiancabello.inventory.data.model.Dependency;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListFragment.OnAddDependencyListener{
+public class DependencyActivity extends AppCompatActivity implements DependencyListFragment.showAddFragmentListener, DependencyAddFragment.onSaveFragmentListener{
     private Fragment dependencyListFragment;
     private Fragment dependencyAddFragment;
+    private DependencyAddPresenter dependencyAddPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,31 +30,38 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
         dependencyListFragment = getSupportFragmentManager().findFragmentByTag(DependencyListFragment.TAG);
 
         if(dependencyListFragment == null){
-            dependencyListFragment = DependencyListFragment.newInstance();
+            dependencyListFragment = DependencyListFragment.newInstance(null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(android.R.id.content,dependencyListFragment,DependencyListFragment.TAG);
             fragmentTransaction.commit();
         }
     }
 
-    /**
-     * Este método muestra el fragment DependencyAddFragment
-     */
     @Override
-    public void onAddDependency() {
-        showListFragment();
-    }
-
-    private void showAddFragment(){
-        dependencyAddFragment = getSupportFragmentManager().findFragmentByTag(DependencyListFragment.TAG);
+    public void showAddFragment(Dependency dependency){
+        dependencyAddFragment = getSupportFragmentManager().findFragmentByTag(DependencyAddFragment.TAG);
 
         if(dependencyAddFragment == null){
-            dependencyAddFragment = DependencyAddFragment.newInstance();
+            Bundle b = null;
+            if (dependency != null){
+                b = new Bundle();
+                b.putParcelable("dependecy", dependency);
+            }
+            dependencyAddFragment = DependencyAddFragment.newInstance(b);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(android.R.id.content,dependencyAddFragment,DependencyAddFragment.TAG);
             fragmentTransaction.addToBackStack("DependencyListToAddDepencency");
             fragmentTransaction.commit();
         }
+
+        dependencyAddPresenter = new DependencyAddPresenter((DependencyAddFragment)dependencyAddFragment);
+        ((DependencyAddFragment) dependencyAddFragment).setPresenter(dependencyAddPresenter);
+
+    }
+
+    @Override
+    public void onSaveFragment() {
+        getSupportFragmentManager().popBackStack();
     }
 
 }
