@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentTransaction;
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListView.showAddFragmentListener, DependencyAddFragment.onSaveFragmentListener{
+public class DependencyActivity extends AppCompatActivity implements DependencyListView.showAddFragmentListener, DependencyManageFragment.onSaveFragmentListener{
     private Fragment dependencyListFragment;
     private Fragment dependencyAddFragment;
-    private DependencyAddPresenter dependencyAddPresenter;
+    private DependencyManagePresenter dependencyManagePresenter;
     private DependencyListPresenter dependencyListPresenter;
 
     @Override
@@ -39,7 +39,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
 
     @Override
     public void showAddFragment(Dependency dependency){
-        dependencyAddFragment = getSupportFragmentManager().findFragmentByTag(DependencyAddFragment.TAG);
+        dependencyAddFragment = getSupportFragmentManager().findFragmentByTag(DependencyManageFragment.TAG);
 
         if(dependencyAddFragment == null){
             Bundle b = null;
@@ -47,15 +47,15 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
                 b = new Bundle();
                 b.putParcelable("dependecy", dependency);
             }
-            dependencyAddFragment = DependencyAddFragment.newInstance(b);
+            dependencyAddFragment = DependencyManageFragment.newInstance(b);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(android.R.id.content,dependencyAddFragment,DependencyAddFragment.TAG);
+            fragmentTransaction.replace(android.R.id.content,dependencyAddFragment, DependencyManageFragment.TAG);
             fragmentTransaction.addToBackStack("DependencyListToAddDepencency");
             fragmentTransaction.commit();
         }
 
-        dependencyAddPresenter = new DependencyAddPresenter((DependencyAddFragment)dependencyAddFragment);
-        ((DependencyAddFragment) dependencyAddFragment).setPresenter(dependencyAddPresenter);
+        dependencyManagePresenter = new DependencyManagePresenter((DependencyManageFragment)dependencyAddFragment);
+        ((DependencyManageFragment) dependencyAddFragment).setPresenter(dependencyManagePresenter);
 
     }
 

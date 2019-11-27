@@ -29,7 +29,7 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         this.viewOnManageDependencyListener = listener;
     }
 
-    public void setList(ArrayList<Dependency> dependencies){
+    public void addAll(ArrayList<Dependency> dependencies){
         this.dependencyArrayList.addAll(dependencies);
     }
 

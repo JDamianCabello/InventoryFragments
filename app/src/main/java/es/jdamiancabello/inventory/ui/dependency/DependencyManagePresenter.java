@@ -3,9 +3,9 @@ package es.jdamiancabello.inventory.ui.dependency;
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.repository.DependencyRepository;
 
-public class DependencyAddPresenter implements DependencyAddContract.Presenter {
-    private DependencyAddContract.View view;
-    public DependencyAddPresenter(DependencyAddContract.View view) {
+public class DependencyManagePresenter implements DependencyManageContract.Presenter {
+    private DependencyManageContract.View view;
+    public DependencyManagePresenter(DependencyManageContract.View view) {
         this.view = view;
     }
 

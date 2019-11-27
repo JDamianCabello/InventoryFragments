@@ -12,9 +12,11 @@ public class DependencyRepository {
     private static DependencyRepository repository;
     private List<Dependency> dependencyList;
 
+    static {
+        repository = new DependencyRepository();
+    }
+
     public static DependencyRepository getInstance(){
-        if(repository==null)
-            repository = new DependencyRepository();
         return repository;
     }
 

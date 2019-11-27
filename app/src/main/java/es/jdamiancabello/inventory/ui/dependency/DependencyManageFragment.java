@@ -21,12 +21,12 @@ import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
 
-public class DependencyAddFragment extends Fragment implements DependencyAddContract.View{
+public class DependencyManageFragment extends Fragment implements DependencyManageContract.View{
     private TextInputLayout nombreCorto, nombre, descripcion;
     private TextInputEditText ednombreCorto, ednombre, eddescripcion;
     private Spinner spinner;
     private FloatingActionButton floatingActionButton;
-    private DependencyAddContract.Presenter presenter;
+    private DependencyManageContract.Presenter presenter;
     private onSaveFragmentListener activityListener;
 
     @Override
@@ -44,18 +44,18 @@ public class DependencyAddFragment extends Fragment implements DependencyAddCont
     public static final String TAG = "dependencyAddFragment";
 
     public static Fragment newInstance(Bundle bundle) {
-        DependencyAddFragment dependencyAddFragment = new DependencyAddFragment();
+        DependencyManageFragment dependencyManageFragment = new DependencyManageFragment();
         if (bundle != null){
-            dependencyAddFragment.setArguments(bundle);
+            dependencyManageFragment.setArguments(bundle);
         }
-        return dependencyAddFragment;
+        return dependencyManageFragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        return inflater.inflate(R.layout.fragment_dependency_add,container,false);
+        return inflater.inflate(R.layout.fragment_dependency_manage,container,false);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class DependencyAddFragment extends Fragment implements DependencyAddCont
     }
 
     @Override
-    public void setPresenter(DependencyAddContract.Presenter presenter) {
+    public void setPresenter(DependencyManageContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

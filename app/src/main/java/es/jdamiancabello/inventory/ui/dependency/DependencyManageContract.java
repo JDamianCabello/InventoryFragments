@@ -2,7 +2,7 @@ package es.jdamiancabello.inventory.ui.dependency;
 
 import es.jdamiancabello.inventory.ui.base.BaseView;
 
-public interface DependencyAddContract {
+public interface DependencyManageContract {
 
     interface View extends BaseView<Presenter> {
         void onShortNameEmpty(String error);

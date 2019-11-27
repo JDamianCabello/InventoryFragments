@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,6 +31,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     private showAddFragmentListener activityListener;
     private DependencyAdapter.onManageDependencyListener adapterOnManagerDependency;
     private RecyclerView rvDependencies;
+    private ProgressBar progressBar;
     private DependencyAdapter dependencyAdapter;
     private DependencyListContract.Presenter presenterListener;
     public static final String TAG = "dependencyListFragment";
@@ -59,6 +61,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressBar= view.findViewById(R.id.progressBar);
+
         rvDependencies = view.findViewById(R.id.rvDependency);
 
         dependencyAdapter = new DependencyAdapter();
@@ -79,7 +83,6 @@ public class DependencyListView extends Fragment implements DependencyListContra
             }
         };
         dependencyAdapter.setViewOnManageDependencyListener(adapterOnManagerDependency);
-
         rvDependencies.setAdapter(dependencyAdapter);
 
 
@@ -116,7 +119,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     @Override
     public void refresh(ArrayList<Dependency> dependencies) {
         dependencyAdapter.clear();
-        dependencyAdapter.setList(dependencies);
+        dependencyAdapter.addAll(dependencies);
         dependencyAdapter.notifyDataSetChanged();
     }
 
@@ -127,13 +130,18 @@ public class DependencyListView extends Fragment implements DependencyListContra
     }
 
     @Override
-    public void setListAdapter(ArrayList<Dependency> dependencies) {
-        this.dependencyAdapter.setList(dependencies);
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onSucess() {
-
+        presenterListener.loadData();
     }
 
     @Override

@@ -9,11 +9,11 @@ public interface DependencyListContract {
     interface View extends BaseView<Presenter> {
         void refresh(ArrayList<Dependency> dependencies);
         void noDependencies();
-        void setListAdapter(ArrayList<Dependency> dependencies);
+        void showProgressBar();
+        void hideProgressBar();
     }
 
     interface Presenter{
-        void modifyDependency(Dependency dependency);
         void deleteDependency(Dependency dependency);
         void loadData();
     }
