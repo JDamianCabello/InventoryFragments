@@ -1,7 +1,6 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,7 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import es.jdamiancabello.inventory.R;
-
+import es.jdamiancabello.inventory.data.model.Dependency;
 
 
 public class DependencyAddFragment extends Fragment implements DependencyAddContract.View{
@@ -75,13 +73,32 @@ public class DependencyAddFragment extends Fragment implements DependencyAddCont
         floatingActionButton = view.findViewById(R.id.fabDependencyManageSave);
         if (getArguments() != null){
             //TODO DAMIAN, SACA LA DEPENDENCIA DEL BUNDLE QUE HAY EN LOS ARGUMENTOS Y PONES LOS TEXTOS DE LOS TEXT INPUT LAYOUT. EL NOMBRE CORTO ES LA PK Y HAY QUE PONER EL SET_ENABLE EN FALSE
+            Dependency dependency = getArguments().getParcelable("dependecy");
+            ednombreCorto.setText(dependency.getShortName());
+            ednombre.setText(dependency.getName());
+            eddescripcion.setText(dependency.getDescription());
+            spinner.setSelection(getIndex(spinner,dependency.getYear()));
+            ednombreCorto.setEnabled(false);
         }
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onValidate(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString());
+                if (getArguments()!= null){
+                    presenter.onValidateModify(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString());
+                }else {
+                    presenter.onValidate(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString());
+
+                }
             }
         });
+    }
+
+    private int getIndex(Spinner spinner, String year) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(year))
+                return i;
+        }
+        return 0;
     }
 
 

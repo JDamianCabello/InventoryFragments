@@ -33,6 +33,21 @@ public class DependencyRepository {
         return dependencyList.add(dependency);
     }
 
+    public boolean modifyDependency(Dependency newDependency){
+        for (Dependency it : dependencyList) {
+            if (it.getShortName().equals(newDependency.getShortName())) {
+                it.setName(newDependency.getName());
+                it.setDescription(newDependency.getDescription());
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteDependency(Dependency dependency){
+        return dependencyList.remove(dependency);
+    }
+
     public List<Dependency> getDependencyList(){
         return dependencyList;
     }

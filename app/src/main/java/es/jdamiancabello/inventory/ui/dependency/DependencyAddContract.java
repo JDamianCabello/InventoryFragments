@@ -16,5 +16,6 @@ public interface DependencyAddContract {
 
     interface Presenter{
         void onValidate(String name, String shortName, String description, String spinner);
+        void onValidateModify(String string, String toString, String toString1, String toString2);
     }
 }

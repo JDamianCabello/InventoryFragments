@@ -18,25 +18,45 @@ import es.jdamiancabello.inventory.data.repository.DependencyRepository;
 
 public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.ViewHolder> {
     private ArrayList<Dependency> dependencyArrayList;
+    private onManageDependencyListener viewOnManageDependencyListener;
 
     //Obtenemos los datos desde el repositorio
     public DependencyAdapter() {
-        this.dependencyArrayList = (ArrayList<Dependency>)DependencyRepository.getInstance().getDependencyList();
+        dependencyArrayList = new ArrayList<>();
+    }
+
+    public void setViewOnManageDependencyListener(onManageDependencyListener listener){
+        this.viewOnManageDependencyListener = listener;
+    }
+
+    public void setList(ArrayList<Dependency> dependencies){
+        this.dependencyArrayList.addAll(dependencies);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dependency_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.dependency_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.icon.setLetter(dependencyArrayList.get(position).getName().substring(0,1));
+        holder.icon.setLetter(dependencyArrayList.get(position).getName().substring(0, 1));
         holder.tvName.setText(dependencyArrayList.get(position).getName());
         holder.tvShortName.setText(dependencyArrayList.get(position).getShortName());
         holder.tvDescription.setText(dependencyArrayList.get(position).getDescription());
+
+        holder.bind(dependencyArrayList.get(position), viewOnManageDependencyListener);
+    }
+
+    public void clear() {
+        this.dependencyArrayList.clear();
+    }
+
+    public interface onManageDependencyListener {
+        void onEditDependencyListener(Dependency dependency);
+        void onDeleteDependencyListener(Dependency dependency);
     }
 
 
@@ -55,7 +75,24 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
             tvName = itemView.findViewById(R.id.tvDependencyItemName);
             tvShortName = itemView.findViewById(R.id.tvDependencyItemShortName);
             tvDescription = itemView.findViewById(R.id.tvDependencyItemDescription);
-            //TODO AÑADIR ONCLICK EN LOS ELEMTOS
+        }
+
+        public void bind(final Dependency dependency, final onManageDependencyListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onEditDependencyListener(dependency);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onDeleteDependencyListener(dependency);
+                    return true;
+                }
+            });
         }
     }
 }
+

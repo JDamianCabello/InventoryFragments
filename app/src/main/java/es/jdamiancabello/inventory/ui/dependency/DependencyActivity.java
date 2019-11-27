@@ -4,19 +4,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import es.jdamiancabello.inventory.R;
-import es.jdamiancabello.inventory.adapter.DependencyAdapter;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListFragment.showAddFragmentListener, DependencyAddFragment.onSaveFragmentListener{
+public class DependencyActivity extends AppCompatActivity implements DependencyListView.showAddFragmentListener, DependencyAddFragment.onSaveFragmentListener{
     private Fragment dependencyListFragment;
     private Fragment dependencyAddFragment;
     private DependencyAddPresenter dependencyAddPresenter;
+    private DependencyListPresenter dependencyListPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +24,17 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     }
 
     private void showListFragment(){
-        dependencyListFragment = getSupportFragmentManager().findFragmentByTag(DependencyListFragment.TAG);
+        dependencyListFragment = getSupportFragmentManager().findFragmentByTag(DependencyListView.TAG);
 
         if(dependencyListFragment == null){
-            dependencyListFragment = DependencyListFragment.newInstance(null);
+            dependencyListFragment = DependencyListView.newInstance(null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(android.R.id.content,dependencyListFragment,DependencyListFragment.TAG);
+            fragmentTransaction.add(android.R.id.content,dependencyListFragment, DependencyListView.TAG);
             fragmentTransaction.commit();
         }
+
+        dependencyListPresenter = new DependencyListPresenter((DependencyListView)dependencyListFragment);
+        ((DependencyListView) dependencyListFragment).setPresenter(dependencyListPresenter);
     }
 
     @Override

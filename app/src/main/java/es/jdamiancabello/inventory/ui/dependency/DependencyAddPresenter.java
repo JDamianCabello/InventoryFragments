@@ -12,10 +12,20 @@ public class DependencyAddPresenter implements DependencyAddContract.Presenter {
     @Override
     public void onValidate(String name, String shortName, String description, String spinner) {
         if(checktName(name) & checkShortName(shortName) & checkDescription(description)){
-            if(DependencyRepository.getInstance().addDependency(new Dependency(name,shortName,description,spinner)))
+                if(DependencyRepository.getInstance().addDependency(new Dependency(name,shortName,description,spinner)))
                 view.onSucess();
             else
                 view.showGenericError("No se ha podido añadir");
+        }
+    }
+
+    @Override
+    public void onValidateModify(String name, String shortName, String description, String spinner) {
+        if(checktName(name) & checkDescription(description)) {
+            if (DependencyRepository.getInstance().modifyDependency(new Dependency(name,shortName,description,spinner)))
+                view.onSucess();
+            else
+                view.showGenericError("No se ha podido modificar");
         }
     }
 
