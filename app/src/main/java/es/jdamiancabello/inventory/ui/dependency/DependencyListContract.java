@@ -1,6 +1,7 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.ui.base.BaseView;
@@ -11,6 +12,7 @@ public interface DependencyListContract {
         void noDependencies();
         void showProgressBar();
         void hideProgressBar();
+        void onSucessDelete(List<Dependency> dependencyList);
     }
 
     interface Presenter{

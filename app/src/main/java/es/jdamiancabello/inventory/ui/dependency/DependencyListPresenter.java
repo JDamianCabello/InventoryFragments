@@ -20,7 +20,6 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
     public void deleteDependency(Dependency dependency) {
         if(DependencyRepository.getInstance().deleteDependency(dependency)) {
             view.refresh((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
-            view.onSucess();
         }
     }
 

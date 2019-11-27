@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.adapter.DependencyAdapter;
@@ -139,9 +140,16 @@ public class DependencyListView extends Fragment implements DependencyListContra
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+
+    public void onSucessDelete(List<Dependency> dependencyList) {
+        dependencyAdapter.clear();
+        dependencyAdapter.addAll((ArrayList<Dependency>) dependencyList);
+        dependencyAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onSucess() {
-        presenterListener.loadData();
+
     }
 
     @Override

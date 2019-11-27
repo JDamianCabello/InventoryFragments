@@ -29,6 +29,4 @@
     <string name="signupActivity_textInputEmail">E-mail</string>
     <string name="signupActivity_signUpButton">Sign Up</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
