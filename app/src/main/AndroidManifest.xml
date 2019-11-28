@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dependency.DependencyActivity"></activity>
+        <activity android:name=".ui.sector.SectorActivity"></activity>
+        <activity android:name=".ui.dependency.DependencyActivity" />
         <activity
             android:name=".ui.SignUpActivity"
             android:label="@string/activitySignUp"
@@ -17,16 +18,17 @@
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
+        </activity>
+        <activity
+            android:name=".ui.DashBoardActivity"
+            android:label="@string/activityDashboardLabel"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.DashBoardActivity"
-            android:label="@string/activityDashboardLabel"
-            android:launchMode="singleTask" />
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/activityLoginName"

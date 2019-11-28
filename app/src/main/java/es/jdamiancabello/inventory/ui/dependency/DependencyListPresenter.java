@@ -23,7 +23,11 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
             //1.2 Comprobar si no hay datos
             if(DependencyRepository.getInstance().getDependencyList().isEmpty())
                 view.noDependencies();
-            view.refresh((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
+            else
+            {
+                //Aqui se muestra el toask de si hay datos (o la imagen)
+            }
+            view.onSucessDelete();
         }
     }
 

@@ -67,7 +67,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
         rvDependencies = view.findViewById(R.id.rvDependency);
 
         dependencyAdapter = new DependencyAdapter();
-        DependencyAdapter.onManageDependencyListener adapterOnManagerDependency = new DependencyAdapter.onManageDependencyListener() {
+        adapterOnManagerDependency = new DependencyAdapter.onManageDependencyListener() {
             @Override
             public void onEditDependencyListener(Dependency dependency) {
                 activityListener.showAddFragment(dependency);
@@ -190,7 +190,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
     @Override
     public void onAcceptDialog() {
         presenterListener.deleteDependency(deletedDependency);
-        presenterListener.loadData();
+        dependencyAdapter.notifyDataSetChanged();
+        deletedDependency = null;
     }
 
     interface showAddFragmentListener{
