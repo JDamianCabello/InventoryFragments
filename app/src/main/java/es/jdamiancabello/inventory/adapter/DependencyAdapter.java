@@ -29,6 +29,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
         this.viewOnManageDependencyListener = listener;
     }
 
+    public void delete(Dependency dependency){
+        dependencyArrayList.remove(dependency);
+    }
+
     public void addAll(ArrayList<Dependency> dependencies){
         this.dependencyArrayList.addAll(dependencies);
     }
@@ -52,6 +56,10 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
     public void clear() {
         this.dependencyArrayList.clear();
+    }
+
+    public void add(Dependency d) {
+        dependencyArrayList.add(d);
     }
 
     public interface onManageDependencyListener {

@@ -2,13 +2,11 @@ package es.jdamiancabello.inventory.ui.dependency;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +18,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.adapter.DependencyAdapter;
+import es.jdamiancabello.inventory.ui.base.BaseDialogFragment;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
-public class DependencyListView extends Fragment implements DependencyListContract.View{
+public class DependencyListView extends Fragment implements DependencyListContract.View, BaseDialogFragment.OnAcceptDialogListener{
 
+    public static final int CODE_DELETE = 300;
     private FloatingActionButton fabAdd;
     private showAddFragmentListener activityListener;
     private DependencyAdapter.onManageDependencyListener adapterOnManagerDependency;
@@ -35,6 +34,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
     private ProgressBar progressBar;
     private DependencyAdapter dependencyAdapter;
     private DependencyListContract.Presenter presenterListener;
+    private Dependency deletedDependency;
     public static final String TAG = "dependencyListFragment";
 
     public static Fragment newInstance(Bundle bundle) {
@@ -75,12 +75,16 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
             @Override
             public void onDeleteDependencyListener(final Dependency dependency) {
-                new AlertDialog.Builder(getContext()).setTitle("ELIMINAR").setMessage("¿Seguro que desea elmininar " + dependency.getName() + "?").setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        presenterListener.deleteDependency(dependency);
-                    }
-                }).setNegativeButton(android.R.string.no,null).show();
+                Bundle b = new Bundle();
+                b.putString(BaseDialogFragment.TITTLE,"ELIMINAR");
+                b.putString(BaseDialogFragment.MESSAGE, "¿Seguro que desea elmininar " + dependency.getName() + "?");
+                BaseDialogFragment baseDialogFragment = (BaseDialogFragment) BaseDialogFragment.newInstance(b);
+
+                baseDialogFragment.setTargetFragment(DependencyListView.this, CODE_DELETE);
+                baseDialogFragment.show(getFragmentManager(),baseDialogFragment.TAG);
+
+                deletedDependency = dependency;
+
             }
         };
         dependencyAdapter.setViewOnManageDependencyListener(adapterOnManagerDependency);
@@ -127,7 +131,7 @@ public class DependencyListView extends Fragment implements DependencyListContra
 
     @Override
     public void noDependencies() {
-        Snackbar.make(getView(),"No hay datos para mostrar.",Snackbar.LENGTH_INDEFINITE).show();
+        Toast.makeText(getContext(),"No hay datos para mostrar.",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -141,10 +145,31 @@ public class DependencyListView extends Fragment implements DependencyListContra
     }
 
 
-    public void onSucessDelete(List<Dependency> dependencyList) {
-        dependencyAdapter.clear();
-        dependencyAdapter.addAll((ArrayList<Dependency>) dependencyList);
+    public void onSucessDelete() {
+        dependencyAdapter.delete(deletedDependency);
         dependencyAdapter.notifyDataSetChanged();
+        showSnackBarDeleted();
+    }
+
+    @Override
+    public void onSucessUndo(Dependency d) {
+        dependencyAdapter.add(d);
+        dependencyAdapter.notifyDataSetChanged();
+        Toast.makeText(getContext(),"Se ha restaurado "+d.getName(),Toast.LENGTH_SHORT).show();
+    }
+
+    private void showSnackBarDeleted() {
+        final Dependency undoDependency = deletedDependency;
+        Snackbar.make(getView(),R.string.undoDelete,Snackbar.LENGTH_LONG).setAction(R.string.undo, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                undoDeleted(undoDependency);
+            }
+        }).show();
+    }
+
+    private void undoDeleted(Dependency d) {
+        presenterListener.undoDelete(d);
     }
 
     @Override
@@ -160,6 +185,12 @@ public class DependencyListView extends Fragment implements DependencyListContra
     @Override
     public void showGenericError(String s) {
         Toast.makeText(getContext(),s,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAcceptDialog() {
+        presenterListener.deleteDependency(deletedDependency);
+        presenterListener.loadData();
     }
 
     interface showAddFragmentListener{

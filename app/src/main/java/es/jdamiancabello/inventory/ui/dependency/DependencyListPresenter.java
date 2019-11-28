@@ -18,8 +18,18 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
 
     @Override
     public void deleteDependency(Dependency dependency) {
+        //1. Realizar la operacion en el repo y comprobar el resultado
         if(DependencyRepository.getInstance().deleteDependency(dependency)) {
+            //1.2 Comprobar si no hay datos
+            if(DependencyRepository.getInstance().getDependencyList().isEmpty())
+                view.noDependencies();
             view.refresh((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
+        }
+    }
+
+    public void undoDelete(Dependency d){
+        if(DependencyRepository.getInstance().addDependency(d)){
+            view.onSucessUndo(d);
         }
     }
 

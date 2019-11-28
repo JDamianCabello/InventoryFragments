@@ -28,5 +28,7 @@
     <string name="signupActivity_textInputPasswordConfirm">Repeat password</string>
     <string name="signupActivity_textInputEmail">E-mail</string>
     <string name="signupActivity_signUpButton">Sign Up</string>
+    <string name="undoDelete">Dependency deleted.</string>
+    <string name="undo">Undo</string>
 
 </resources>

@@ -12,11 +12,13 @@ public interface DependencyListContract {
         void noDependencies();
         void showProgressBar();
         void hideProgressBar();
-        void onSucessDelete(List<Dependency> dependencyList);
+        void onSucessDelete();
+        void onSucessUndo(Dependency d);
     }
 
     interface Presenter{
         void deleteDependency(Dependency dependency);
         void loadData();
+        void undoDelete(Dependency dependency);
     }
 }
