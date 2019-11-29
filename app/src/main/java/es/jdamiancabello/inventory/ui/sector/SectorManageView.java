@@ -2,6 +2,7 @@ package es.jdamiancabello.inventory.ui.sector;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import es.jdamiancabello.inventory.R;
+import es.jdamiancabello.inventory.adapter.SectorSpinnerContentAdapter;
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.data.repository.DependencyRepository;
 
 
-public class SectorManageView extends Fragment implements SectorManageContract.View, SectorSpinnerContentContract.Spinner{
+public class SectorManageView extends Fragment implements SectorManageContract.View{
 
     public static final String TAG = "SectorManageView";
     private TextInputLayout nombreCorto, nombre, descripcion;
@@ -34,6 +40,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
 
+
     public static Fragment newInstance(Bundle b) {
         SectorManageView fragment = new SectorManageView();
         if (b != null){
@@ -42,6 +49,10 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,13 +71,13 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         ednombre = view.findViewById(R.id.tiledSectorManageName);
         ednombreCorto = view.findViewById(R.id.tiledSectorManageShort);
 
-        spinner = view.findViewById(R.id.spinnerSectorManageInventory);
 
+        spinner = view.findViewById(R.id.spinnerSectorManageInventory);
 
         fbSave = view.findViewById(R.id.fabSectorManageSave);
 
         if (getArguments() != null){
-            Sector sector = getArguments().getParcelable("sectpr");
+            Sector sector = getArguments().getParcelable("sector");
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
@@ -129,8 +140,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     }
 
     @Override
-    public Dependency getSelectedDependency(Dependency selectedDependency) {
-        return null;
+    public void showDependencies(ArrayList<Dependency> dependencies) {
     }
 
 

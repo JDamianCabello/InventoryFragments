@@ -4,7 +4,7 @@ import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
 import es.jdamiancabello.inventory.data.repository.SectorRepository;
 
-public class SectorManagePresenter implements SectorManageContract.Presenter {
+public class SectorManagePresenter implements SectorManageContract.Presenter  {
     SectorManageContract.View view;
 
     public SectorManagePresenter(SectorManageContract.View view){
@@ -21,6 +21,11 @@ public class SectorManagePresenter implements SectorManageContract.Presenter {
 
     @Override
     public void onValidateModify(String name, String shortName, String description) {
+
+    }
+
+    @Override
+    public void loadSpinnerDependencies() {
 
     }
 

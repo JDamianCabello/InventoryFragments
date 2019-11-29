@@ -139,6 +139,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     @Override
     public void setPresenter(DependencyManageContract.Presenter presenter) {
         this.presenter = presenter;
+
     }
 
     @Override
