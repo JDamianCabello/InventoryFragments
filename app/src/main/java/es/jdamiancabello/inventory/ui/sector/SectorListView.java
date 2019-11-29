@@ -63,6 +63,13 @@ public class SectorListView extends Fragment implements SectorListContract.View,
         progressBar = view.findViewById(R.id.sectorProgressBar);
 
         fabButton = view.findViewById(R.id.fabAddSector);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewListener.sectorAddEditFragmentShow(null);
+            }
+        });
+
         adapter = new SectorAdapter();
         adapterOManageSectorListener = new SectorAdapter.OnManageSectorListener() {
             @Override
@@ -81,8 +88,7 @@ public class SectorListView extends Fragment implements SectorListContract.View,
 
             @Override
             public void onAddorEditSectorListener(Sector sector) {
-                viewListener.sectorAddEditFragmentShow(null);
-
+                viewListener.sectorAddEditFragmentShow(sector);
             }
         };
 

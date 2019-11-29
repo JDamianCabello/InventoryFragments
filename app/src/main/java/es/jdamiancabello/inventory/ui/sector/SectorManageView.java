@@ -22,7 +22,7 @@ import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
 
 
-public class SectorManageView extends Fragment {
+public class SectorManageView extends Fragment implements SectorManageContract.View, SectorSpinnerContentContract.Spinner{
 
     public static final String TAG = "SectorManageView";
     private TextInputLayout nombreCorto, nombre, descripcion;
@@ -52,8 +52,8 @@ public class SectorManageView extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.onViewCreated(view, savedInstanceState);
-        nombre = view.findViewById(R.id.tiledSectorManageName);
-        nombreCorto = view.findViewById(R.id.tiledSectorManageShort);
+        nombre = view.findViewById(R.id.tilSectorManageName);
+        nombreCorto = view.findViewById(R.id.tilSectorManageShort);
         descripcion = view.findViewById(R.id.tilSectorManageDescription);
 
         eddescripcion = view.findViewById(R.id.tiledSectorManageDescription);
@@ -61,6 +61,8 @@ public class SectorManageView extends Fragment {
         ednombreCorto = view.findViewById(R.id.tiledSectorManageShort);
 
         spinner = view.findViewById(R.id.spinnerSectorManageInventory);
+
+
         fbSave = view.findViewById(R.id.fabSectorManageSave);
 
         if (getArguments() != null){
@@ -85,8 +87,20 @@ public class SectorManageView extends Fragment {
 
     }
 
+
+    @Override
+    public void onSucess() {
+        viewListener.onSaveSectorManageView();
+
+    }
+
     public void setPresenter(SectorManageContract.Presenter presenter){
         this.presenter = presenter;
+    }
+
+    @Override
+    public void showGenericError(String s) {
+
     }
 
     private int getIndex(Spinner spinner, String dependencyName) {
@@ -112,6 +126,11 @@ public class SectorManageView extends Fragment {
     public void onDetach() {
         super.onDetach();
         viewListener = null;
+    }
+
+    @Override
+    public Dependency getSelectedDependency(Dependency selectedDependency) {
+        return null;
     }
 
 
