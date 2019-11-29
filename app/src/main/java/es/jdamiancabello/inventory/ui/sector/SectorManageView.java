@@ -79,7 +79,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(getIndex(spinner,sector.getDependency()));
+            spinner.setSelection(getIndex(spinner,sector.getDependency().toString()));
             ednombreCorto.setEnabled(false);
         }
 
@@ -110,6 +110,14 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         return mySector;
     }
 
+    private int getIndex(Spinner spinner, String dependencyName) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(dependencyName))
+                return i;
+        }
+        return 0;
+    }
+
     @Override
     public void onSucess() {
         viewListener.onSaveSectorManageView();
@@ -123,14 +131,6 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     @Override
     public void showGenericError(String s) {
 
-    }
-
-    private int getIndex(Spinner spinner, Dependency dependency) {
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(dependency.toString()))
-                return i;
-        }
-        return 0;
     }
 
     @Override
