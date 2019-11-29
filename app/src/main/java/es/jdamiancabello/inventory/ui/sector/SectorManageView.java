@@ -1,8 +1,6 @@
 package es.jdamiancabello.inventory.ui.sector;
 
 import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,20 +10,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import es.jdamiancabello.inventory.R;
-import es.jdamiancabello.inventory.adapter.SectorSpinnerContentAdapter;
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
-import es.jdamiancabello.inventory.data.repository.DependencyRepository;
 
 
 public class SectorManageView extends Fragment implements SectorManageContract.View{
@@ -37,6 +34,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     private FloatingActionButton fbSave;
     private OnSaveSectorManageView viewListener;
     private SectorManageContract.Presenter presenter;
+    private SpinnerAdapter spinnerAdapter;
 
 
 
@@ -73,7 +71,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
         spinner = view.findViewById(R.id.spinnerSectorManageInventory);
-
+        //spinnerAdapter = new SpinnerAdapter(view.getContext(),R.layout.support_simple_spinner_dropdown_item,setupContentList());
         fbSave = view.findViewById(R.id.fabSectorManageSave);
 
         if (getArguments() != null){
@@ -95,7 +93,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
                 }
             }
         });
-
+        presenter.onViewCreated();
     }
 
 
@@ -139,8 +137,13 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         viewListener = null;
     }
 
+
     @Override
-    public void showDependencies(ArrayList<Dependency> dependencies) {
+    public void setupContentList(ArrayList<Dependency> dependencies) {
+        ArrayAdapter<Dependency> spinnerAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dependencies);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(spinnerAdapter);
     }
 
 

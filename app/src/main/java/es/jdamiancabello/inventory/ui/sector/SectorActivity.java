@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.SpinnerAdapter;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Sector;

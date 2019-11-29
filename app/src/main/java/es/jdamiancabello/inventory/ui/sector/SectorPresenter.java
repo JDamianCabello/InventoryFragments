@@ -29,7 +29,7 @@ public class SectorPresenter implements SectorListContract.Presenter {
             viewSectorListContract.onSuccessDeleted();
         }
     }
-    
+
 
     @Override
     public void load() {

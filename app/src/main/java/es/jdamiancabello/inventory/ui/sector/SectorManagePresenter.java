@@ -1,7 +1,13 @@
 package es.jdamiancabello.inventory.ui.sector;
 
+import android.os.AsyncTask;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.data.repository.DependencyRepository;
 import es.jdamiancabello.inventory.data.repository.SectorRepository;
 
 public class SectorManagePresenter implements SectorManageContract.Presenter  {
@@ -14,9 +20,11 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
 
     @Override
     public void onValidate(String name, String shortName, String description, Dependency dependency) {
-        if(validateName(name) & validateShortName(shortName) & validateDescription(description))
+        if(validateName(name) & validateShortName(shortName) & validateDescription(description)){
             if(SectorRepository.getInstance().addDependency(new Sector(name,shortName,dependency,description,"")))
                 view.onSucess();
+        }
+
     }
 
     @Override
@@ -25,8 +33,8 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
     }
 
     @Override
-    public void loadSpinnerDependencies() {
-
+    public void onViewCreated() {
+        view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
     }
 
     public boolean validateName(String s){
