@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -71,7 +72,6 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
         spinner = view.findViewById(R.id.spinnerSectorManageInventory);
-        //spinnerAdapter = new SpinnerAdapter(view.getContext(),R.layout.support_simple_spinner_dropdown_item,setupContentList());
         fbSave = view.findViewById(R.id.fabSectorManageSave);
 
         if (getArguments() != null){
@@ -79,7 +79,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(getIndex(spinner,sector.getDependency().toString()));
+            spinner.setSelection(presenter.getPosition(sector.getDependency()));
             ednombreCorto.setEnabled(false);
         }
 
@@ -108,14 +108,6 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
         return mySector;
-    }
-
-    private int getIndex(Spinner spinner, String dependencyName) {
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(dependencyName))
-                return i;
-        }
-        return 0;
     }
 
     @Override

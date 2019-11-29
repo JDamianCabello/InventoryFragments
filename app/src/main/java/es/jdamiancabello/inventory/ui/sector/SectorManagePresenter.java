@@ -56,6 +56,11 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
         }
     }
 
+    @Override
+    public int getPosition(Dependency dependency) {
+        return DependencyRepository.getInstance().getPosition(dependency);
+    }
+
     public boolean validateName(String s){
         if(s.isEmpty())
             return false;

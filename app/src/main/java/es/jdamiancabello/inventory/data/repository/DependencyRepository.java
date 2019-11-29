@@ -16,11 +16,11 @@ public class DependencyRepository {
         repository = new DependencyRepository();
     }
 
-    public static DependencyRepository getInstance(){
+    public static DependencyRepository getInstance() {
         return repository;
     }
 
-    private DependencyRepository(){
+    private DependencyRepository() {
         dependencyList = new ArrayList<>();
         initialice();
     }
@@ -31,11 +31,11 @@ public class DependencyRepository {
         }
     }
 
-    public boolean addDependency(Dependency dependency){
+    public boolean addDependency(Dependency dependency) {
         return dependencyList.add(dependency);
     }
 
-    public boolean modifyDependency(Dependency newDependency){
+    public boolean modifyDependency(Dependency newDependency) {
         for (Dependency it : dependencyList) {
             if (it.getShortName().equals(newDependency.getShortName())) {
                 it.setName(newDependency.getName());
@@ -46,11 +46,24 @@ public class DependencyRepository {
         return false;
     }
 
-    public boolean deleteDependency(Dependency dependency){
+    public boolean deleteDependency(Dependency dependency) {
         return dependencyList.remove(dependency);
     }
 
-    public List<Dependency> getDependencyList(){
+    public List<Dependency> getDependencyList() {
         return dependencyList;
     }
+
+    public int getPosition(Dependency dependency) {
+        int i = 0;
+
+        for (int j = 0; j < dependencyList.size(); j++) {
+            if (dependencyList.get(i).getShortName().equals(dependency.getShortName()))
+                return i;
+
+
+        }
+        return -1;
+    }
+
 }
