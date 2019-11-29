@@ -36,4 +36,8 @@ public class SectorRepository {
     public boolean deleteSector(Sector sector){
         return sectorList.remove(sector);
     }
+
+    public boolean addDependency(Sector sector) {
+        return sectorList.add(sector);
+    }
 }

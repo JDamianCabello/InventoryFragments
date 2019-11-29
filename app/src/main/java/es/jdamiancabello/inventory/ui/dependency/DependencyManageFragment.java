@@ -72,7 +72,6 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         spinner = view.findViewById(R.id.spinnerDependencyManageInventory);
         floatingActionButton = view.findViewById(R.id.fabDependencyManageSave);
         if (getArguments() != null){
-            //TODO DAMIAN, SACA LA DEPENDENCIA DEL BUNDLE QUE HAY EN LOS ARGUMENTOS Y PONES LOS TEXTOS DE LOS TEXT INPUT LAYOUT. EL NOMBRE CORTO ES LA PK Y HAY QUE PONER EL SET_ENABLE EN FALSE
             Dependency dependency = getArguments().getParcelable("dependecy");
             ednombreCorto.setText(dependency.getShortName());
             ednombre.setText(dependency.getName());

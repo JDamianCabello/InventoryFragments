@@ -29,6 +29,7 @@ public class SectorPresenter implements SectorListContract.Presenter {
             viewSectorListContract.onSuccessDeleted();
         }
     }
+    
 
     @Override
     public void load() {
@@ -66,7 +67,9 @@ public class SectorPresenter implements SectorListContract.Presenter {
 
     @Override
     public void undo(Sector sector) {
-
+        if (SectorRepository.getInstance().addDependency(sector)) {
+            viewSectorListContract.onSucessUndo(sector);
+        }
     }
 
 }

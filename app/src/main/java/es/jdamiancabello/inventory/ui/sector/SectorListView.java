@@ -16,16 +16,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.adapter.SectorAdapter;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.ui.base.BaseDialogFragment;
 
 
-public class SectorListView extends Fragment implements SectorListContract.View{
+public class SectorListView extends Fragment implements SectorListContract.View, BaseDialogFragment.OnAcceptDialogListener{
 
     public static final String TAG = "SectorListView";
     private SectorListContract.Presenter presenter;
@@ -33,9 +34,12 @@ public class SectorListView extends Fragment implements SectorListContract.View{
     private FloatingActionButton fabButton;
     private ProgressBar progressBar;
     private SectorListViewListener viewListener;
+    private static final int CODE_DELETE = 300;
 
     private SectorAdapter adapter;
     private SectorAdapter.OnManageSectorListener adapterOManageSectorListener;
+
+    private Sector deletedSector;
 
 
 
@@ -62,13 +66,22 @@ public class SectorListView extends Fragment implements SectorListContract.View{
         adapter = new SectorAdapter();
         adapterOManageSectorListener = new SectorAdapter.OnManageSectorListener() {
             @Override
-            public void onDeleteSectorListener(Sector sector) {
-                Toast.makeText(getContext(),"Hola Edit",Toast.LENGTH_SHORT).show();
+            public void onDeleteSectorListener(final Sector sector) {
+                Bundle b = new Bundle();
+                b.putString(BaseDialogFragment.TITTLE,"ELIMINAR");
+                b.putString(BaseDialogFragment.MESSAGE, "¿Seguro que desea elmininar " + sector.toString() + "?");
+                BaseDialogFragment baseDialogFragment = (BaseDialogFragment) BaseDialogFragment.newInstance(b);
+
+
+                baseDialogFragment.setTargetFragment(SectorListView.this, CODE_DELETE);
+                baseDialogFragment.show(getFragmentManager(),baseDialogFragment.TAG);
+
+                deletedSector = sector;
             }
 
             @Override
             public void onAddorEditSectorListener(Sector sector) {
-                Toast.makeText(getContext(),"Hola rm",Toast.LENGTH_SHORT).show();
+                viewListener.sectorAddEditFragmentShow(null);
 
             }
         };
@@ -117,19 +130,10 @@ public class SectorListView extends Fragment implements SectorListContract.View{
         progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void showImgNoData() {
-
-    }
 
     @Override
     public void noSectors() {
         Toast.makeText(getContext(),"No hay sectores",Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onSuccessDelete(ArrayList<Sector> sectors) {
-
     }
 
     @Override
@@ -141,27 +145,33 @@ public class SectorListView extends Fragment implements SectorListContract.View{
 
     @Override
     public void onSuccessDeleted() {
-
+        adapter.delete(deletedSector);
+        adapter.notifyDataSetChanged();
+        showSnackBarDeleted();
     }
 
-    @Override
-    public boolean isVisibleImgNoData() {
-        return false;
+    private void showSnackBarDeleted() {
+        final Sector sectorDeleted = deletedSector;
+        Snackbar.make(getView(),R.string.undoDelete,Snackbar.LENGTH_LONG).setAction(R.string.undo, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                undoDelete(deletedSector);
+            }
+        }).show();
     }
 
-    @Override
-    public void hideImgNoData() {
 
+    private void undoDelete(Sector sector) {
+        presenter.undo(sector);
     }
 
-    @Override
-    public void onSuccess(List<Sector> sectorList) {
 
-    }
 
     @Override
-    public void OnSuccessUndo(Sector sector) {
-
+    public void onSucessUndo(Sector sector) {
+        adapter.add(sector);
+        adapter.notifyDataSetChanged();
+        Toast.makeText(getContext(),"Se ha restaurado "+sector.toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -177,6 +187,12 @@ public class SectorListView extends Fragment implements SectorListContract.View{
     @Override
     public void showGenericError(String s) {
 
+    }
+
+    @Override
+    public void onAcceptDialog() {
+        presenter.delete(deletedSector);
+        adapter.notifyDataSetChanged();
     }
 
 

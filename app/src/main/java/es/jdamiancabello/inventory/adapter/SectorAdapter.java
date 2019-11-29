@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -57,6 +56,14 @@ public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder
 
     public void addAll(ArrayList<Sector> sectors) {
         this.sectorsList.addAll(sectors);
+    }
+
+    public void delete(Sector sector) {
+        this.sectorsList.remove(sector);
+    }
+
+    public void add(Sector sector) {
+        this.sectorsList.add(sector);
     }
 
     public interface OnManageSectorListener{

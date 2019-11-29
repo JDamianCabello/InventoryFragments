@@ -10,15 +10,10 @@ public interface SectorListContract {
     interface View extends BaseView<Presenter> {
         void showProgress();
         void hideProgress();
-        void showImgNoData();
         void noSectors();
-        void onSuccessDelete(ArrayList<Sector> sectors);
         void refresh(ArrayList<Sector> sectors);
         void onSuccessDeleted();
-        boolean isVisibleImgNoData();
-        void hideImgNoData();
-        void onSuccess(List<Sector> sectorList);
-        void OnSuccessUndo(Sector sector);
+        void onSucessUndo(Sector sector);
     }
 
     interface Presenter{

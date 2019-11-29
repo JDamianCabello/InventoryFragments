@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyManageShort"
+            android:id="@+id/tilSectorManageShort"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiledDependencyManageShort"
+                android:id="@+id/tiledSectorManageShort"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre corto"
@@ -30,7 +30,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyManageName"
+            android:id="@+id/tilSectorManageName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,10 +40,10 @@
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilDependencyManageShort">
+            app:layout_constraintTop_toBottomOf="@+id/tilSectorManageShort">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiledDependencyManageName"
+                android:id="@+id/tiledSectorManageName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="nombre"
@@ -56,24 +56,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="inventario"
+            android:text="Dependencia del sector"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilDependencyManageName" />
+            app:layout_constraintTop_toBottomOf="@+id/tilSectorManageName" />
 
         <Spinner
-            android:id="@+id/spinnerDependencyManageInventory"
+            android:id="@+id/spinnerSectorManageInventory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:entries="@array/inventory_years"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilDependencyManageDescription"
+            android:id="@+id/tilSectorManageDescription"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -83,10 +82,10 @@
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerDependencyManageInventory">
+            app:layout_constraintTop_toBottomOf="@+id/spinnerSectorManageInventory">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiledDependencyManageDescription"
+                android:id="@+id/tiledSectorManageDescription"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Descripción" />
@@ -94,7 +93,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDependencyManageSave"
+        android:id="@+id/fabSectorManageSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
