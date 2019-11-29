@@ -19,22 +19,41 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
 
 
     @Override
-    public void onValidate(String name, String shortName, String description, Dependency dependency) {
-        if(validateName(name) & validateShortName(shortName) & validateDescription(description)){
-            if(SectorRepository.getInstance().addDependency(new Sector(name,shortName,dependency,description,"")))
-                view.onSucess();
-        }
+    public void onAddSector(String name, String shortName, String description, Dependency dependency) {
+
 
     }
 
     @Override
-    public void onValidateModify(String name, String shortName, String description) {
+    public void onModifySector(String name, String shortName, String description, Dependency dependency) {
 
     }
 
     @Override
     public void onViewCreated() {
         view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
+    }
+
+    @Override
+    public void onAddSector(Sector sector) {
+        if(validateSector(sector) ){
+            if(SectorRepository.getInstance().addDependency(sector))
+                view.onSucess();
+        }
+    }
+
+    private boolean validateSector(Sector sector) {
+        return true;
+    }
+
+    @Override
+    public void onModifySector(Sector sector) {
+        if(validateSector(sector)) {
+            if (SectorRepository.getInstance().modifyDependency(sector))
+                view.onSucess();
+            else
+                view.showGenericError("No se ha podido modificar");
+        }
     }
 
     public boolean validateName(String s){

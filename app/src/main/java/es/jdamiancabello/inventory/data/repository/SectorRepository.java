@@ -40,4 +40,15 @@ public class SectorRepository {
     public boolean addDependency(Sector sector) {
         return sectorList.add(sector);
     }
+
+    public boolean modifyDependency(Sector newSector) {
+        for (Sector it : sectorList) {
+            if (it.getShortName().equals(newSector.getShortName())) {
+                it.setName(newSector.getName());
+                it.setSectorDescription(newSector.getSectorDescription());
+                return true;
+            }
+        }
+        return false;
+    }
 }

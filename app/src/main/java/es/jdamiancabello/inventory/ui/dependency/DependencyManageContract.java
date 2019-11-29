@@ -1,6 +1,7 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import es.jdamiancabello.inventory.data.model.Dependency;
+import es.jdamiancabello.inventory.data.model.Sector;
 import es.jdamiancabello.inventory.ui.base.BaseView;
 
 public interface DependencyManageContract {

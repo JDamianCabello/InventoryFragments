@@ -79,7 +79,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(getIndex(spinner,sector.getDependency().toString()));
+            spinner.setSelection(getIndex(spinner,sector.getDependency()));
             ednombreCorto.setEnabled(false);
         }
 
@@ -87,15 +87,28 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             @Override
             public void onClick(View v) {
                 if (getArguments()!= null){
-                    presenter.onValidateModify(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString());
+                    presenter.onModifySector(createSector());
                 }else {
-                    presenter.onValidate(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),(Dependency)spinner.getSelectedItem());
+                    presenter.onAddSector(createSector());
+
                 }
             }
         });
         presenter.onViewCreated();
     }
 
+    private Sector createSector() {
+        Sector mySector = new Sector();
+
+        mySector.setName(ednombre.getText().toString());
+        mySector.setShortName(ednombreCorto.getText().toString());
+        mySector.setSectorDescription(eddescripcion.getText().toString());
+        mySector.setDependency((Dependency) spinner.getSelectedItem());
+        mySector.setUrlImage(null);
+
+
+        return mySector;
+    }
 
     @Override
     public void onSucess() {
@@ -112,9 +125,9 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
     }
 
-    private int getIndex(Spinner spinner, String dependencyName) {
+    private int getIndex(Spinner spinner, Dependency dependency) {
         for (int i = 0; i < spinner.getCount(); i++) {
-            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(dependencyName))
+            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(dependency.toString()))
                 return i;
         }
         return 0;

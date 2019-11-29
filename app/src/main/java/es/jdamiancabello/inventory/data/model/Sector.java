@@ -12,6 +12,8 @@ public class Sector implements Parcelable {
     private String sectorDescription;
     private String urlImage;
 
+    public Sector(){}
+
     public Sector(String name, String shortName, Dependency dependency, String sectorDescription, String urlImage) {
         this.name = name;
         this.shortName = shortName;

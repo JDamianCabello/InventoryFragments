@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
+import es.jdamiancabello.inventory.data.model.Sector;
 
 
 public class DependencyManageFragment extends Fragment implements DependencyManageContract.View{
@@ -91,6 +92,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
             }
         });
     }
+
 
     private int getIndex(Spinner spinner, String year) {
         for (int i = 0; i < spinner.getCount(); i++) {

@@ -12,5 +12,5 @@
     <dimen name="btLoginWithLogin_GlobalMargin">10sp</dimen>
 
     <!--    Dependency_item-->
-    <dimen name="letter_icon_size">30dp</dimen>
+    <dimen name="letter_icon_size">60dp</dimen>
 </resources>
