@@ -11,6 +11,7 @@ public interface DependencyManageContract {
         void onNameEmpty(String error);
         void onDescriptionEmpty(String error);
 
+
         void onClearErrorShortNameEmpty();
         void onlearErrorNameEmpty();
         void onlearErrorDescriptionEmpty();

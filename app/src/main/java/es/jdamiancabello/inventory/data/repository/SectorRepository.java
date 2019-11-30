@@ -46,6 +46,7 @@ public class SectorRepository {
             if (it.getShortName().equals(newSector.getShortName())) {
                 it.setName(newSector.getName());
                 it.setSectorDescription(newSector.getSectorDescription());
+                it.setDependency(newSector.getDependency());
                 return true;
             }
         }

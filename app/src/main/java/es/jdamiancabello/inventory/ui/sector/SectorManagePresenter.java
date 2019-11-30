@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
@@ -19,17 +21,6 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
 
 
     @Override
-    public void onAddSector(String name, String shortName, String description, Dependency dependency) {
-
-
-    }
-
-    @Override
-    public void onModifySector(String name, String shortName, String description, Dependency dependency) {
-
-    }
-
-    @Override
     public void onViewCreated() {
         view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
     }
@@ -43,7 +34,14 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
     }
 
     private boolean validateSector(Sector sector) {
-        return true;
+        if(validateEmptyName(sector.getName()) &
+                validateEmptyShortName(sector.getShortName()) &
+                validateEmptyDescription(sector.getSectorDescription()) &
+                validateTooShortName(sector.getName()) &
+                validateContainsEspecialChar(sector.getShortName())){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -61,21 +59,53 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
         return DependencyRepository.getInstance().getPosition(dependency);
     }
 
-    public boolean validateName(String s){
-        if(s.isEmpty())
+    public boolean validateEmptyName(String s){
+        if(s.isEmpty()) {
+            view.onNameEmpty("El nombre está vacío");
             return false;
+        }
+        view.onClearErrorNameEmpty();
         return true;
     }
 
-    public boolean validateShortName(String s){
-        if(s.isEmpty())
+    public boolean validateTooShortName(String s){
+        if(s.length() < 3){
+            view.onShortNameShort("El nombre corto debe tener al menos 3 carácteres");
             return false;
+        }
+        view.onClearErrorShortNameShort();
         return true;
     }
 
-    public boolean validateDescription(String s){
-        if(s.isEmpty())
+    public boolean validateEmptyShortName(String s){
+        if(s.isEmpty()) {
+            view.onShortNameEmpty("Nombre corto está vacío");
             return false;
+        }
+        view.onClearErrorShortNameEmpty();
+        return true;
+    }
+
+    public boolean validateEmptyDescription(String s){
+        if(s.isEmpty()) {
+            view.onDescriptionEmpty("La descripción está vacía");
+            return false;
+        }
+        view.onClearErrorDescriptionEmpty();
+        return true;
+    }
+
+
+    private boolean validateContainsEspecialChar(String s){
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(s);
+        boolean b = m.find();
+
+        if (b){
+            view.onContainsEspecialChar("No se permiten carácteres especiales");
+            return false;
+        }
+        view.onClearErrorContainsEspecialChar();
         return true;
     }
 }

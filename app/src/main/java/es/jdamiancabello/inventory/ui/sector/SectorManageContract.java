@@ -9,15 +9,23 @@ import es.jdamiancabello.inventory.ui.base.BaseView;
 public interface SectorManageContract {
     interface View extends BaseView<Presenter> {
         void setupContentList(ArrayList<Dependency> dependencies);
+
+        void onShortNameEmpty(String error);
+        void onShortNameShort(String error);
+        void onNameEmpty(String error);
+        void onDescriptionEmpty(String error);
+        void onContainsEspecialChar(String error);
+
+        void onClearErrorShortNameEmpty();
+        void onClearErrorShortNameShort();
+        void onClearErrorNameEmpty();
+        void onClearErrorDescriptionEmpty();
+        void onClearErrorContainsEspecialChar();
     }
 
     interface Presenter{
-        void onAddSector(String name, String shortName, String description, Dependency dependency);
-        void onModifySector(String name, String shortName, String description, Dependency dependency);
         void onViewCreated();
-
         void onAddSector(Sector sector);
-
         void onModifySector(Sector sector);
         int getPosition(Dependency dependency);
     }

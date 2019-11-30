@@ -35,9 +35,6 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     private FloatingActionButton fbSave;
     private OnSaveSectorManageView viewListener;
     private SectorManageContract.Presenter presenter;
-    private SpinnerAdapter spinnerAdapter;
-
-
 
 
     public static Fragment newInstance(Bundle b) {
@@ -74,12 +71,14 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         spinner = view.findViewById(R.id.spinnerSectorManageInventory);
         fbSave = view.findViewById(R.id.fabSectorManageSave);
 
+        presenter.onViewCreated();
+
         if (getArguments() != null){
             Sector sector = getArguments().getParcelable("sector");
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(presenter.getPosition(sector.getDependency()));
+            spinner.setSelection(presenter.getPosition(sector.getDependency()),false);
             ednombreCorto.setEnabled(false);
         }
 
@@ -94,7 +93,6 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
                 }
             }
         });
-        presenter.onViewCreated();
     }
 
     private Sector createSector() {
@@ -148,7 +146,60 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         ArrayAdapter<Dependency> spinnerAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dependencies);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
         spinner.setAdapter(spinnerAdapter);
+    }
+
+    @Override
+    public void onShortNameEmpty(String error) {
+        nombreCorto.setError(error);
+
+    }
+
+    @Override
+    public void onShortNameShort(String error) {
+        nombre.setError(error);
+    }
+
+    @Override
+    public void onNameEmpty(String error) {
+        nombre.setError(error);
+    }
+
+    @Override
+    public void onDescriptionEmpty(String error) {
+        descripcion.setError(error);
+    }
+
+    @Override
+    public void onContainsEspecialChar(String error) {
+        nombreCorto.setError(error);
+    }
+
+    @Override
+    public void onClearErrorShortNameEmpty() {
+        nombreCorto.setError(null);
+    }
+
+    @Override
+    public void onClearErrorShortNameShort() {
+        nombreCorto.setError(null);
+    }
+
+    @Override
+    public void onClearErrorNameEmpty() {
+        nombre.setError(null);
+    }
+
+    @Override
+    public void onClearErrorDescriptionEmpty() {
+        descripcion.setError(null);
+    }
+
+
+    @Override
+    public void onClearErrorContainsEspecialChar() {
+        nombreCorto.setError(null);
     }
 
 

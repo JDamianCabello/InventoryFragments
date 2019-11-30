@@ -55,13 +55,10 @@ public class DependencyRepository {
     }
 
     public int getPosition(Dependency dependency) {
-        int i = 0;
 
         for (int j = 0; j < dependencyList.size(); j++) {
-            if (dependencyList.get(i).getShortName().equals(dependency.getShortName()))
-                return i;
-
-
+            if (dependencyList.get(j).getShortName().equals(dependency.getShortName()))
+                return j;
         }
         return -1;
     }
