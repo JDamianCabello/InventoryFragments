@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.widget.SpinnerAdapter;
 
 import es.jdamiancabello.inventory.R;
+import es.jdamiancabello.inventory.base.BaseActivity;
 import es.jdamiancabello.inventory.data.model.Sector;
 
-public class SectorActivity extends AppCompatActivity implements SectorListView.SectorListViewListener, SectorManageView.OnSaveSectorManageView{
+public class SectorActivity extends BaseActivity implements SectorListView.SectorListViewListener, SectorManageView.OnSaveSectorManageView{
     private Fragment sectorListFragment;
     private SectorPresenter sectorPresenter;
     private Fragment sectorManageView;

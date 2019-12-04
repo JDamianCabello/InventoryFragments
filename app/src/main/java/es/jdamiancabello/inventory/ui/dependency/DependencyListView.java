@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -56,6 +59,9 @@ public class DependencyListView extends Fragment implements DependencyListContra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+        //Se debe añadir la siguiente línea para que llame a los métodos callback
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -101,6 +107,24 @@ public class DependencyListView extends Fragment implements DependencyListContra
                 activityListener.showAddFragment(null);
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_dependencylist,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String msg = new String();
+        switch (item.getItemId()){
+            case R.id.dependencyListMenu_orderbyName:
+                msg = "Order by name option";
+                break;
+        }
+        Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

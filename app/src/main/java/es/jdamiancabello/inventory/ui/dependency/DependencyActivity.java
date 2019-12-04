@@ -1,15 +1,20 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import es.jdamiancabello.inventory.R;
+import es.jdamiancabello.inventory.base.BaseActivity;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
-public class DependencyActivity extends AppCompatActivity implements DependencyListView.showAddFragmentListener, DependencyManageFragment.onSaveFragmentListener{
+public class DependencyActivity extends BaseActivity implements DependencyListView.showAddFragmentListener, DependencyManageFragment.onSaveFragmentListener{
     private Fragment dependencyListFragment;
     private Fragment dependencyAddFragment;
     private DependencyManagePresenter dependencyManagePresenter;
@@ -63,5 +68,4 @@ public class DependencyActivity extends AppCompatActivity implements DependencyL
     public void onSaveFragment() {
         getSupportFragmentManager().popBackStack();
     }
-
 }
