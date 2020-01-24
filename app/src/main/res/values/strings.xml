@@ -38,5 +38,7 @@
     <string name="menu_help">Help</string>
     <string name="menu_search">menusearch</string>
     <string name="orderbyname">Order by name</string>
+    <string name="channel_name">Inventory</string>
+    <string name="channel_description">Notification channel de inventory</string>
 
 </resources>

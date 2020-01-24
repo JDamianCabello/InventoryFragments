@@ -96,7 +96,19 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
     }
 
     private int getPosition(Dependency dependency) {
-        return 0;
+        int aux = -1;
+        switch (dependency.getInventory()){
+            case "2018":
+                aux = 0;
+                break;
+            case "2019":
+                aux = 1;
+                break;
+            case "2020":
+                aux = 2;
+                break;
+        }
+        return aux;
     }
 
     private Sector createSector() {

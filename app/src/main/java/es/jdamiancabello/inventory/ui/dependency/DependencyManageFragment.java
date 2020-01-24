@@ -1,5 +1,6 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
+import android.app.Notification;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.ui.InventoryApplication;
 
 
 public class DependencyManageFragment extends Fragment implements DependencyManageContract.View{
@@ -135,6 +137,16 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
 
     @Override
     public void onSucess() {
+        Notification.Builder builder = new Notification.Builder(
+                getContext(),
+                InventoryApplication.CHANNEL_ID)
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.ic_inventory)
+                .setContentTitle("Inventory");
+
+        builder.build();
+
+
         activityListener.onSaveFragment();
     }
 
