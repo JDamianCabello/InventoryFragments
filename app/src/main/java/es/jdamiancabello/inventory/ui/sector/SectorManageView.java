@@ -78,7 +78,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(presenter.getPosition(sector.getDependency()),false);
+            spinner.setSelection(getPosition(sector.getDependency()),false);
             ednombreCorto.setEnabled(false);
         }
 
@@ -93,6 +93,10 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
                 }
             }
         });
+    }
+
+    private int getPosition(Dependency dependency) {
+        return 0;
     }
 
     private Sector createSector() {

@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -31,4 +35,8 @@ dependencies {
 
     //Librería ver la primera letra en la foto MaterialLetterIcon
     implementation 'com.github.ivbaranov:materiallettericon:0.2.3'
+
+    //Room
+    implementation "androidx.room:room-runtime:2.2.1"
+    annotationProcessor "androidx.room:room-compiler:2.2.1"
 }

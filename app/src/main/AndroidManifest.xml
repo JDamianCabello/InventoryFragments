@@ -3,6 +3,7 @@
     package="es.jdamiancabello.inventory">
 
     <application
+        android:name=".ui.InventoryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,11 +17,11 @@
             android:label="@string/activitySignUp"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.DashBoardActivity"
             android:theme="@style/SplashTheme">
         </activity>
         <activity
-            android:name=".ui.DashBoardActivity"
+            android:name=".ui.SplashActivity"
             android:label="@string/activityDashboardLabel"
             android:launchMode="singleTask" >
             <intent-filter>

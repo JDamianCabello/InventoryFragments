@@ -22,7 +22,7 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
 
     @Override
     public void onViewCreated() {
-        view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getDependencyList());
+        view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getAll());
     }
 
     @Override
@@ -54,10 +54,6 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
         }
     }
 
-    @Override
-    public int getPosition(Dependency dependency) {
-        return DependencyRepository.getInstance().getPosition(dependency);
-    }
 
     public boolean validateEmptyName(String s){
         if(s.isEmpty()) {

@@ -18,7 +18,7 @@ public interface DependencyManageContract {
     }
 
     interface Presenter{
-        void onValidate(String name, String shortName, String description, String spinner);
-        void onValidateModify(String string, String toString, String toString1, String toString2);
+        void onAdd(Dependency dependency);
+        void onValidateModify(Dependency dependency);
     }
 }

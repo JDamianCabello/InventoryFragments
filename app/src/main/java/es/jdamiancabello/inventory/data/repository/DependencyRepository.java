@@ -1,8 +1,13 @@
 package es.jdamiancabello.inventory.data.repository;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import es.jdamiancabello.inventory.data.DependencyDAO;
+import es.jdamiancabello.inventory.data.InventoryDatabase;
 import es.jdamiancabello.inventory.data.model.Dependency;
 
 /**
@@ -10,7 +15,8 @@ import es.jdamiancabello.inventory.data.model.Dependency;
  */
 public class DependencyRepository {
     private static DependencyRepository repository;
-    private List<Dependency> dependencyList;
+    private DependencyDAO dependencyDao;
+
 
     static {
         repository = new DependencyRepository();
@@ -21,46 +27,65 @@ public class DependencyRepository {
     }
 
     private DependencyRepository() {
-        dependencyList = new ArrayList<>();
-        initialice();
+        dependencyDao = InventoryDatabase.getDatabase().dependencyDao();
     }
 
-    private void initialice() {
-        for (int i = 1; i <= 3; i++) {
-            dependencyList.add(new Dependency("dependency_" + i, "dp_" + i, "This re the dependency number: " + i, "No image"));
+
+    public List<Dependency> getAll() {
+        List<Dependency> dependencies = null;
+        try {
+            dependencies = InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.getAll()).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
+
+//        this.dependencyRepositoryListener = dependencyRepositoryListener;
+//        try {
+//            return new ListAsyncTask().execute().get();
+//        } catch (ExecutionException | InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        return dependencies;
     }
 
-    public boolean addDependency(Dependency dependency) {
-        return dependencyList.add(dependency);
-    }
-
-    public boolean modifyDependency(Dependency newDependency) {
-        for (Dependency it : dependencyList) {
-            if (it.getShortName().equals(newDependency.getShortName())) {
-                it.setName(newDependency.getName());
-                it.setDescription(newDependency.getDescription());
-                return true;
-            }
+    public long addDependency(Dependency dependency) {
+//            return new InsertAsyncTask().execute().get();
+        long rowId = -1;
+        try {
+            rowId = InventoryDatabase.databaseWriteExecutor.submit(() -> dependencyDao.insert(dependency)).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
-        return false;
+        return rowId;
+    }
+
+    public boolean editDependency(Dependency dependency) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.update(dependency));
+        return true;
     }
 
     public boolean deleteDependency(Dependency dependency) {
-        return dependencyList.remove(dependency);
+        InventoryDatabase.databaseWriteExecutor.execute(() -> dependencyDao.delete(dependency));
+        return true;
     }
 
-    public List<Dependency> getDependencyList() {
-        return dependencyList;
-    }
+    private class ListAsyncTask extends AsyncTask<Void, Void, List<Dependency>> {
 
-    public int getPosition(Dependency dependency) {
-
-        for (int j = 0; j < dependencyList.size(); j++) {
-            if (dependencyList.get(j).getShortName().equals(dependency.getShortName()))
-                return j;
+        @Override
+        protected List<Dependency> doInBackground(Void... voids) {
+            return dependencyDao.getAll();
         }
-        return -1;
+    }
+
+    private class InsertAsyncTask extends AsyncTask<Dependency, Void, Long> {
+        @Override
+        protected Long doInBackground(Dependency... dependencies) {
+            Long result = dependencyDao.insert(dependencies[0]);
+            if (result == -1) {
+                dependencyDao.update(dependencies[0]);
+            }
+            return null;
+        }
     }
 
 }

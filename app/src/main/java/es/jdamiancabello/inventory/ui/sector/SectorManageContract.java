@@ -27,6 +27,5 @@ public interface SectorManageContract {
         void onViewCreated();
         void onAddSector(Sector sector);
         void onModifySector(Sector sector);
-        int getPosition(Dependency dependency);
     }
 }

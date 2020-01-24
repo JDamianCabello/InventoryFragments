@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.repository.DependencyRepository;
@@ -21,7 +22,7 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
         //1. Realizar la operacion en el repo y comprobar el resultado
         if(DependencyRepository.getInstance().deleteDependency(dependency)) {
             //1.2 Comprobar si no hay datos
-            if(DependencyRepository.getInstance().getDependencyList().isEmpty())
+            if(DependencyRepository.getInstance().getAll().isEmpty())
                 view.noDependencies();
             else
             {
@@ -32,41 +33,12 @@ public class DependencyListPresenter implements DependencyListContract.Presenter
     }
 
     public void undoDelete(Dependency d){
-        if(DependencyRepository.getInstance().addDependency(d)){
+        if(DependencyRepository.getInstance().addDependency(d) == 1)
             view.onSucessUndo(d);
-        }
     }
 
     @Override
     public void loadData() {
-        new AsyncTask<Void,Void, List<Dependency>>(){
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                view.showProgressBar();
-            }
-
-            @Override
-            protected void onPostExecute(List<Dependency> dependencies) {
-                super.onPostExecute(dependencies);
-                if(dependencies.isEmpty())
-                    view.noDependencies();
-                else
-                    view.refresh((ArrayList<Dependency>) dependencies);
-                view.hideProgressBar();
-            }
-
-            @Override
-            protected List<Dependency> doInBackground(Void... voids) {
-                try{
-                    Thread.sleep(3000);
-                }catch (InterruptedException e){
-                    e.printStackTrace();
-                }
-
-                return DependencyRepository.getInstance().getDependencyList();
-            }
-        }.execute();
+        view.refresh((ArrayList<Dependency>) DependencyRepository.getInstance().getAll());
     }
 }

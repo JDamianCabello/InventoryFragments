@@ -16,9 +16,9 @@ public class SectorRepository {
     }
 
     private void initialice() {
-        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "No image"), "Descripción del Sector 1", ""));
-        sectorList.add(new Sector("Sector 2", "SC2", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "No image"), "Descripción del Sector 2", ""));
-        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_2","dp_2", "This re the dependency number: 2", "No image"), "Descripción del Sector 1", ""));
+        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "2019",""), "Descripción del Sector 1", ""));
+        sectorList.add(new Sector("Sector 2", "SC2", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "2020",""), "Descripción del Sector 2", ""));
+        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_2","dp_2", "This re the dependency number: 2", "2030",""), "Descripción del Sector 1", ""));
     }
 
     static {

@@ -3,36 +3,45 @@ package es.jdamiancabello.inventory.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 /*
 Clase modelo Dependency
  */
+@Entity
 public class Dependency implements Parcelable {
+    @NonNull
     private String name;
+
+    @PrimaryKey
+    @NonNull
     private String shortName;
+    @NonNull
     private String description;
+    @NonNull
     private String uriImage;
-    private String year;
+    @NonNull
+    private String inventory;
 
-    public Dependency(String name, String shortName, String description, String year) {
-        this.name = name;
-        this.shortName = shortName;
-        this.description = description;
-        this.year = year;
-    }
 
-    public Dependency(String name, String shortName, String description,String year, String uriImage) {
+    public Dependency(String name, String shortName, String description,String inventory, String uriImage) {
         this.name = name;
         this.shortName = shortName;
         this.description = description;
         this.uriImage = uriImage;
+        this.inventory = inventory;
     }
 
+    @Ignore
     protected Dependency(Parcel in) {
         name = in.readString();
         shortName = in.readString();
         description = in.readString();
         uriImage = in.readString();
-        year = in.readString();
+        inventory = in.readString();
     }
 
     public static final Creator<Dependency> CREATOR = new Creator<Dependency>() {
@@ -79,13 +88,6 @@ public class Dependency implements Parcelable {
         this.uriImage = uriImage;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
 
     @Override
     public String toString() {
@@ -97,12 +99,21 @@ public class Dependency implements Parcelable {
         return 0;
     }
 
+    @NonNull
+    public String getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(@NonNull String inventory) {
+        this.inventory = inventory;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(shortName);
         dest.writeString(description);
         dest.writeString(uriImage);
-        dest.writeString(year);
+        dest.writeString(inventory);
     }
 }

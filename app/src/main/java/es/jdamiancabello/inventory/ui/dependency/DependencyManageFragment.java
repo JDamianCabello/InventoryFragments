@@ -77,16 +77,16 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
             ednombreCorto.setText(dependency.getShortName());
             ednombre.setText(dependency.getName());
             eddescripcion.setText(dependency.getDescription());
-            spinner.setSelection(getIndex(spinner,dependency.getYear()));
+            spinner.setSelection(getIndex(spinner,dependency.getInventory()));
             ednombreCorto.setEnabled(false);
         }
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getArguments()!= null){
-                    presenter.onValidateModify(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString());
+                    presenter.onValidateModify(new Dependency(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString(),""));
                 }else {
-                    presenter.onValidate(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString());
+                    presenter.onAdd(new Dependency(ednombre.getText().toString(),ednombreCorto.getText().toString(),eddescripcion.getText().toString(),spinner.getSelectedItem().toString(),""));
 
                 }
             }
