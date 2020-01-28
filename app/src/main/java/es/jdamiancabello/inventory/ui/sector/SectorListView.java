@@ -62,7 +62,8 @@ public class SectorListView extends Fragment implements SectorListContract.View,
         rvSectors = view.findViewById(R.id.rvSector);
         progressBar = view.findViewById(R.id.sectorProgressBar);
 
-        fabButton = view.findViewById(R.id.fabAddSector);
+        fabButton = getActivity().findViewById(R.id.floatingActionButton);
+        fabButton.setImageResource(R.drawable.ic_action_add);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

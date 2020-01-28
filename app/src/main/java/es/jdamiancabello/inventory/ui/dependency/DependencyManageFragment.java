@@ -73,7 +73,8 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         ednombreCorto = view.findViewById(R.id.tiledDependencyManageShort);
 
         spinner = view.findViewById(R.id.spinnerDependencyManageInventory);
-        floatingActionButton = view.findViewById(R.id.fabDependencyManageSave);
+        floatingActionButton = getActivity().findViewById(R.id.floatingActionButton);
+        floatingActionButton.setImageResource(R.drawable.ic_action_save);
         if (getArguments() != null){
             Dependency dependency = getArguments().getParcelable("dependecy");
             ednombreCorto.setText(dependency.getShortName());

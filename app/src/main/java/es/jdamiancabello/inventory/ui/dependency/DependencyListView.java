@@ -100,7 +100,8 @@ public class DependencyListView extends Fragment implements DependencyListContra
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvDependencies.setLayoutManager(linearLayoutManager);
 
-        fabAdd = view.findViewById(R.id.fabAddDependency);
+        fabAdd = getActivity().findViewById(R.id.floatingActionButton);
+        fabAdd.setImageResource(R.drawable.ic_action_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

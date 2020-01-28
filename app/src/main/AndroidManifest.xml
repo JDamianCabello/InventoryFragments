@@ -35,6 +35,8 @@
             android:label="@string/activityLoginName"
             android:theme="@style/AppTheme" />
         <activity android:name=".base.BaseActivity" />
+        <activity android:name=".ui.base.BaseActivity" />
+        <activity android:name=".ui.product.ProductActivity" />
     </application>
 
 </manifest>

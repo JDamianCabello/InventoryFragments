@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.widget.SpinnerAdapter;
 
 import es.jdamiancabello.inventory.R;
-import es.jdamiancabello.inventory.base.BaseActivity;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.ui.base.BaseActivity;
 
 public class SectorActivity extends BaseActivity implements SectorListView.SectorListViewListener, SectorManageView.OnSaveSectorManageView{
     private Fragment sectorListFragment;
@@ -20,14 +20,14 @@ public class SectorActivity extends BaseActivity implements SectorListView.Secto
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sector);
+        //setContentView(R.layout.activity_sector);
 
         sectorListFragment = getSupportFragmentManager().findFragmentByTag(SectorListView.TAG);
         if(sectorListFragment == null){
             sectorListFragment = SectorListView.newInstance(null);
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(android.R.id.content,sectorListFragment,SectorListView.TAG);
+            fragmentTransaction.add(R.id.content,sectorListFragment,SectorListView.TAG);
             fragmentTransaction.commit();
         }
         sectorPresenter = new SectorPresenter((SectorListContract.View) sectorListFragment);
@@ -48,7 +48,7 @@ public class SectorActivity extends BaseActivity implements SectorListView.Secto
 
             sectorManageView = SectorManageView.newInstance(b);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(android.R.id.content,sectorManageView,SectorManageView.TAG);
+            fragmentTransaction.replace(R.id.content,sectorManageView,SectorManageView.TAG);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

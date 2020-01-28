@@ -1,18 +1,13 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import es.jdamiancabello.inventory.R;
-import es.jdamiancabello.inventory.base.BaseActivity;
 import es.jdamiancabello.inventory.data.model.Dependency;
+import es.jdamiancabello.inventory.ui.base.BaseActivity;
 
 public class DependencyActivity extends BaseActivity implements DependencyListView.showAddFragmentListener, DependencyManageFragment.onSaveFragmentListener{
     private Fragment dependencyListFragment;
@@ -23,7 +18,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dependencies);
+        //setContentView(R.layout.activity_dependencies);
 
         showListFragment();
     }
@@ -34,7 +29,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
         if(dependencyListFragment == null){
             dependencyListFragment = DependencyListView.newInstance(null);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(android.R.id.content,dependencyListFragment, DependencyListView.TAG);
+            fragmentTransaction.add(R.id.content,dependencyListFragment, DependencyListView.TAG);
             fragmentTransaction.commit();
         }
 
@@ -54,7 +49,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
             }
             dependencyAddFragment = DependencyManageFragment.newInstance(b);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(android.R.id.content,dependencyAddFragment, DependencyManageFragment.TAG);
+            fragmentTransaction.replace(R.id.content,dependencyAddFragment, DependencyManageFragment.TAG);
             fragmentTransaction.addToBackStack("DependencyListToAddDepencency");
             fragmentTransaction.commit();
         }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:id="@+id/item_menu_dependency"
+            android:title="@string/item_menu_dependency" />
+        <item
+            android:id="@+id/item_menu_section"
+            android:title="@string/item_menu_section" />
+        <item
+            android:id="@+id/item_menu_product"
+            android:title="@string/item_menu_product" />
+    </group>
+    <item android:title="@string/navigation_option" >
+        <menu >
+            <item
+                android:id="@+id/item_submenu_Settings"
+                android:title="@string/item_submenu_Settings" />
+            <item
+                android:id="@+id/item_submenu_help"
+                android:title="@string/item_submenu_help" />
+            <item
+                android:id="@+id/item_submenu_aboutUs"
+                android:title="@string/item_submenu_aboutUs" />
+        </menu>
+    </item>
+</menu>

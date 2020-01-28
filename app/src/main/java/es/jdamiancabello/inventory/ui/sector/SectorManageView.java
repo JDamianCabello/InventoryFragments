@@ -69,7 +69,8 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
         spinner = view.findViewById(R.id.spinnerSectorManageInventory);
-        fbSave = view.findViewById(R.id.fabSectorManageSave);
+        fbSave = getActivity().findViewById(R.id.floatingActionButton);
+        fbSave.setImageResource(R.drawable.ic_action_save);
 
         presenter.onViewCreated();
 

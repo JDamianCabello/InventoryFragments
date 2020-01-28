@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import es.jdamiancabello.inventory.R;
+import es.jdamiancabello.inventory.ui.base.BaseActivity;
+import es.jdamiancabello.inventory.ui.dependency.DependencyActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, DashBoardActivity.class));
+                startActivity(new Intent(LoginActivity.this, DependencyActivity.class));
                 finish(); //Llama a su método OnDestroy() no se podrá volver atras.
             }
         });

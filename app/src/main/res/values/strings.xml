@@ -40,5 +40,20 @@
     <string name="orderbyname">Order by name</string>
     <string name="channel_name">Inventory</string>
     <string name="channel_description">Notification channel de inventory</string>
+    <string name="openNavigation">open navigation</string>
+    <string name="closeNavigation">close navigation</string>
+    <string name="navigation_option">Options</string>
+    <string name="item_menu_dependency">Dependency</string>
+    <string name="item_menu_section">Section</string>
+    <string name="item_menu_product">Product</string>
+    <string name="item_submenu_Settings">Settings</string>
+    <string name="item_submenu_help">Help</string>
+    <string name="item_submenu_aboutUs">About us</string>
+    <string name="product_description">DESCRIPTION</string>
+    <string name="product_map">MAP</string>
+    <string name="product_info">INFO</string>
+    <string name="product_menu_info">info</string>
+    <string name="product_menu_description">description</string>
+    <string name="product_menu_map">map</string>
 
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/product_menu_info"
+        android:icon="@drawable/ic_info_outline"
+        android:title="@string/product_menu_info" />
+    <item
+        android:id="@+id/product_menu_description"
+        android:icon="@drawable/ic_description"
+        android:title="@string/product_menu_description" />
+    <item
+        android:id="@+id/product_menu_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/product_menu_map" />
+</menu>
