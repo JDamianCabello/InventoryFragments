@@ -1,6 +1,7 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 import es.jdamiancabello.inventory.data.model.Dependency;

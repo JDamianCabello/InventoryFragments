@@ -70,7 +70,6 @@ public class DependencyRepository {
     }
 
     private class ListAsyncTask extends AsyncTask<Void, Void, List<Dependency>> {
-
         @Override
         protected List<Dependency> doInBackground(Void... voids) {
             return dependencyDao.getAll();

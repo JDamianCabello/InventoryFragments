@@ -4,28 +4,46 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
+@Entity(
+        indices = {@Index(value = {"dependency_pk"},unique = true)},
+        foreignKeys = @ForeignKey(entity = Dependency.class,childColumns = "dependency_pk",
+        parentColumns = "shortName",onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE
+))
 public class Sector implements Parcelable {
+    @NonNull
     private String name;
+    @PrimaryKey
+    @NonNull
     private String shortName;
-    private Dependency dependency;
+    @NonNull
+    private String dependency_pk;
+    @NonNull
     private String sectorDescription;
+    @NonNull
     private String urlImage;
 
+    @Ignore
     public Sector(){}
 
-    public Sector(String name, String shortName, Dependency dependency, String sectorDescription, String urlImage) {
+    public Sector(String name, String shortName, String dependency_pk, String sectorDescription, String urlImage) {
         this.name = name;
         this.shortName = shortName;
-        this.dependency = dependency;
+        this.dependency_pk = dependency_pk;
         this.sectorDescription = sectorDescription;
         this.urlImage = urlImage;
     }
 
+    @Ignore
     protected Sector(Parcel in) {
         name = in.readString();
         shortName = in.readString();
-        dependency = in.readParcelable(Dependency.class.getClassLoader());
+        dependency_pk = in.readString();
         sectorDescription = in.readString();
         urlImage = in.readString();
     }
@@ -58,12 +76,13 @@ public class Sector implements Parcelable {
         this.shortName = shortName;
     }
 
-    public Dependency getDependency() {
-        return dependency;
+    @NonNull
+    public String getDependency_pk() {
+        return dependency_pk;
     }
 
-    public void setDependency(Dependency dependency) {
-        this.dependency = dependency;
+    public void setDependency_pk(@NonNull String dependency_pk) {
+        this.dependency_pk = dependency_pk;
     }
 
     public String getSectorDescription() {
@@ -97,7 +116,7 @@ public class Sector implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(shortName);
-        dest.writeParcelable(dependency, flags);
+        dest.writeString(dependency_pk);
         dest.writeString(sectorDescription);
         dest.writeString(urlImage);
     }

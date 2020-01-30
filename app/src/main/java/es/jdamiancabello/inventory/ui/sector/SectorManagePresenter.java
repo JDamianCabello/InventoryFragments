@@ -1,7 +1,5 @@
 package es.jdamiancabello.inventory.ui.sector;
 
-import android.os.AsyncTask;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,13 +20,15 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
 
     @Override
     public void onViewCreated() {
-        view.setupContentList((ArrayList<Dependency>) DependencyRepository.getInstance().getAll());
+        view.setupContentList();
     }
 
     @Override
     public void onAddSector(Sector sector) {
         if(validateSector(sector) ){
-            if(SectorRepository.getInstance().addDependency(sector))
+            if(SectorRepository.getInstance().addSector(sector) == -1)
+                view.showGenericError("No se pudo añadir un pijote de sectores");
+            else
                 view.onSucess();
         }
     }
@@ -47,7 +47,7 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
     @Override
     public void onModifySector(Sector sector) {
         if(validateSector(sector)) {
-            if (SectorRepository.getInstance().modifyDependency(sector))
+            if (SectorRepository.getInstance().editSector(sector))
                 view.onSucess();
             else
                 view.showGenericError("No se ha podido modificar");
@@ -103,5 +103,17 @@ public class SectorManagePresenter implements SectorManageContract.Presenter  {
         }
         view.onClearErrorContainsEspecialChar();
         return true;
+    }
+
+    @Override
+    public List<String> getDependecysToString() {
+        List<Dependency> list = DependencyRepository.getInstance().getAll();
+
+        List<String> listOfNames = new ArrayList<>();
+
+        for (Dependency d: list) {
+            listOfNames.add(d.getName());
+        }
+        return listOfNames;
     }
 }

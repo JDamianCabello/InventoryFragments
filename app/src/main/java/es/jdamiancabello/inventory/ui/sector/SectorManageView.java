@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
@@ -79,7 +80,7 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
             ednombreCorto.setText(sector.getShortName());
             ednombre.setText(sector.getName());
             eddescripcion.setText(sector.getSectorDescription());
-            spinner.setSelection(getPosition(sector.getDependency()),false);
+            spinner.setSelection(getPosition(sector.getDependency_pk()),false);
             ednombreCorto.setEnabled(false);
         }
 
@@ -96,20 +97,13 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         });
     }
 
-    private int getPosition(Dependency dependency) {
-        int aux = -1;
-        switch (dependency.getInventory()){
-            case "2018":
-                aux = 0;
-                break;
-            case "2019":
-                aux = 1;
-                break;
-            case "2020":
-                aux = 2;
-                break;
+    private int getPosition(String dependency) {
+        List<String> aux = presenter.getDependecysToString();
+        for (int i = 0; i < aux.size(); i++) {
+            if(dependency.equals(aux))
+                return i;
         }
-        return aux;
+        return -1;
     }
 
     private Sector createSector() {
@@ -118,17 +112,14 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
         mySector.setName(ednombre.getText().toString());
         mySector.setShortName(ednombreCorto.getText().toString());
         mySector.setSectorDescription(eddescripcion.getText().toString());
-        mySector.setDependency((Dependency) spinner.getSelectedItem());
-        mySector.setUrlImage(null);
-
-
+        mySector.setDependency_pk(spinner.getSelectedItem().toString());
+        mySector.setUrlImage("");
         return mySector;
     }
 
     @Override
     public void onSucess() {
         viewListener.onSaveSectorManageView();
-
     }
 
     public void setPresenter(SectorManageContract.Presenter presenter){
@@ -159,18 +150,15 @@ public class SectorManageView extends Fragment implements SectorManageContract.V
 
 
     @Override
-    public void setupContentList(ArrayList<Dependency> dependencies) {
-        ArrayAdapter<Dependency> spinnerAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dependencies);
+    public void setupContentList() {
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,presenter.getDependecysToString());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
         spinner.setAdapter(spinnerAdapter);
     }
 
     @Override
     public void onShortNameEmpty(String error) {
         nombreCorto.setError(error);
-
     }
 
     @Override

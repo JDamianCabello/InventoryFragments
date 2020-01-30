@@ -1,6 +1,7 @@
 package es.jdamiancabello.inventory.ui.sector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.jdamiancabello.inventory.data.model.Dependency;
 import es.jdamiancabello.inventory.data.model.Sector;
@@ -8,7 +9,7 @@ import es.jdamiancabello.inventory.ui.base.BaseView;
 
 public interface SectorManageContract {
     interface View extends BaseView<Presenter> {
-        void setupContentList(ArrayList<Dependency> dependencies);
+        void setupContentList();
 
         void onShortNameEmpty(String error);
         void onShortNameShort(String error);
@@ -27,5 +28,6 @@ public interface SectorManageContract {
         void onViewCreated();
         void onAddSector(Sector sector);
         void onModifySector(Sector sector);
+        List<String> getDependecysToString();
     }
 }

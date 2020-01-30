@@ -1,25 +1,20 @@
 package es.jdamiancabello.inventory.data.repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import es.jdamiancabello.inventory.data.model.Dependency;
+import es.jdamiancabello.inventory.data.InventoryDatabase;
 import es.jdamiancabello.inventory.data.model.Sector;
+import es.jdamiancabello.inventory.data.SectorDAO;
 
 public class SectorRepository {
-    private List<Sector> sectorList;
     private static SectorRepository sectorRepository;
+    private SectorDAO sectorDAO;
 
     private SectorRepository() {
-        this.sectorList = new ArrayList<>();
-        initialice();
+        this.sectorDAO = InventoryDatabase.getDatabase().sectorDAO();
     }
 
-    private void initialice() {
-        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "2019",""), "Descripción del Sector 1", ""));
-        sectorList.add(new Sector("Sector 2", "SC2", new Dependency("dependency_1","dp_1", "This re the dependency number: 1", "2020",""), "Descripción del Sector 2", ""));
-        sectorList.add(new Sector("Sector 1", "SC1", new Dependency("dependency_2","dp_2", "This re the dependency number: 2", "2030",""), "Descripción del Sector 1", ""));
-    }
 
     static {
         sectorRepository = new SectorRepository();
@@ -29,27 +24,37 @@ public class SectorRepository {
         return sectorRepository;
     }
 
-    public List<Sector> getSectorList(){
-        return sectorList;
+    public List<Sector> getAll(){
+        List<Sector> sectors = null;
+
+        try {
+            sectors = InventoryDatabase.databaseWriteExecutor.submit(() -> sectorDAO.getAll()).get();
+        }catch (ExecutionException | InterruptedException e){
+            e.printStackTrace();
+        }
+
+        return sectors;
+    }
+
+    public long addSector(Sector sector) {
+        long rowId= 0;
+
+        try {
+            rowId = InventoryDatabase.databaseWriteExecutor.submit(() -> sectorDAO.insert(sector)).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+            rowId = -1;
+        }
+        return rowId;
     }
 
     public boolean deleteSector(Sector sector){
-        return sectorList.remove(sector);
+        InventoryDatabase.databaseWriteExecutor.execute(() -> sectorDAO.delete(sector));
+        return true;
     }
 
-    public boolean addDependency(Sector sector) {
-        return sectorList.add(sector);
-    }
-
-    public boolean modifyDependency(Sector newSector) {
-        for (Sector it : sectorList) {
-            if (it.getShortName().equals(newSector.getShortName())) {
-                it.setName(newSector.getName());
-                it.setSectorDescription(newSector.getSectorDescription());
-                it.setDependency(newSector.getDependency());
-                return true;
-            }
-        }
-        return false;
+    public boolean editSector(Sector sector) {
+        InventoryDatabase.databaseWriteExecutor.execute(() -> sectorDAO.update(sector));
+        return true;
     }
 }

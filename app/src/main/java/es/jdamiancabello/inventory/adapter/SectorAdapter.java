@@ -36,7 +36,7 @@ public class SectorAdapter extends RecyclerView.Adapter<SectorAdapter.ViewHolder
         holder.sectorName.setText(sectorsList.get(position).getName());
         holder.sectorShortName.setText(sectorsList.get(position).getShortName());
         holder.sectorDescription.setText(sectorsList.get(position).getSectorDescription());
-        holder.sectorDependencyName.setText(sectorsList.get(position).getDependency().toString());
+        holder.sectorDependencyName.setText(sectorsList.get(position).getDependency_pk());
 
         holder.bind(sectorsList.get(position),viewOnManageSectorListener);
     }
