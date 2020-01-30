@@ -40,10 +40,10 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
     @Override
     public void onAdd(Dependency dependency) {
         if(checktName(dependency.getName()) & checkShortName(dependency.getShortName()) & checkDescription(dependency.getDescription())){
-            if(DependencyRepository.getInstance().addDependency(dependency) == 1)
-                view.onSucess();
-            else
+            if(DependencyRepository.getInstance().addDependency(dependency) == -1)
                 view.showGenericError("No se ha podido añadir");
+            else
+                view.onSucess(dependency);
         }
     }
 
@@ -51,7 +51,7 @@ public class DependencyManagePresenter implements DependencyManageContract.Prese
     public void onValidateModify(Dependency dependency) {
         if(checktName(dependency.getName()) & checkDescription(dependency.getDescription())) {
             if (DependencyRepository.getInstance().editDependency(dependency))
-                view.onSucess();
+                view.onSucess(dependency);
             else
                 view.showGenericError("No se ha podido modificar");
         }

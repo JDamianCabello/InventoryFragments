@@ -15,6 +15,7 @@ public interface DependencyManageContract {
         void onClearErrorShortNameEmpty();
         void onlearErrorNameEmpty();
         void onlearErrorDescriptionEmpty();
+        void onSucess(Dependency dependency);
     }
 
     interface Presenter{

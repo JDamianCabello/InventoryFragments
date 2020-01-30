@@ -1,5 +1,6 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +19,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_dependencies);
+
 
         showListFragment();
     }
@@ -45,7 +46,7 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
             Bundle b = null;
             if (dependency != null){
                 b = new Bundle();
-                b.putParcelable("dependecy", dependency);
+                b.putParcelable(Dependency.TAG, dependency);
             }
             dependencyAddFragment = DependencyManageFragment.newInstance(b);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -62,5 +63,13 @@ public class DependencyActivity extends BaseActivity implements DependencyListVi
     @Override
     public void onSaveFragment() {
         getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if(intent.getBooleanExtra("NOTIFICATION",false))
+            showAddFragment(intent.getExtras().getParcelable(Dependency.TAG));
     }
 }

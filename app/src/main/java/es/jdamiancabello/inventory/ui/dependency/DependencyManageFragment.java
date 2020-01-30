@@ -1,11 +1,15 @@
 package es.jdamiancabello.inventory.ui.dependency;
 
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -17,6 +21,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Random;
 
 import es.jdamiancabello.inventory.R;
 import es.jdamiancabello.inventory.data.model.Dependency;
@@ -76,7 +82,7 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
         floatingActionButton = getActivity().findViewById(R.id.floatingActionButton);
         floatingActionButton.setImageResource(R.drawable.ic_action_save);
         if (getArguments() != null){
-            Dependency dependency = getArguments().getParcelable("dependecy");
+            Dependency dependency = getArguments().getParcelable(Dependency.TAG);
             ednombreCorto.setText(dependency.getShortName());
             ednombre.setText(dependency.getName());
             eddescripcion.setText(dependency.getDescription());
@@ -137,18 +143,37 @@ public class DependencyManageFragment extends Fragment implements DependencyMana
     }
 
     @Override
-    public void onSucess() {
+    public void onSucess(Dependency dependency) {
+        Intent intent = new Intent(getContext(),DependencyActivity.class);
+        intent.putExtra("NOTIFICATION", true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Dependency.TAG, dependency);
+        intent.putExtras(bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),new Random().nextInt(100), intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+
         Notification.Builder builder = new Notification.Builder(
                 getContext(),
                 InventoryApplication.CHANNEL_ID)
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_inventory)
-                .setContentTitle("Inventory");
+                .setContentTitle("Inventory")
+                .setContentText(dependency.getName())
+                .setContentIntent(pendingIntent);
 
-        builder.build();
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+
+        notificationManagerCompat.notify(new Random().nextInt(1000),builder.build());
 
 
         activityListener.onSaveFragment();
+    }
+
+    @Override
+    public void onSucess() {
+
     }
 
     @Override

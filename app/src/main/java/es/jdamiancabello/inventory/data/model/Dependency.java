@@ -13,6 +13,7 @@ Clase modelo Dependency
  */
 @Entity
 public class Dependency implements Parcelable {
+    public static final String TAG = "dependency";
     @NonNull
     private String name;
 
